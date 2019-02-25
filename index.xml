@@ -78,7 +78,7 @@ Contact info@innoaus.jp</description>
       
       <guid>https://innoaus.jp/random_id_generator/</guid>
       <description>独自開発したID生成アルゴリズム（RAINPASS）を用いたランダムID生成器
- 大量のランダムIDを短時間で生成 文字数、文字列のカスタム可能  DEMO 最大10万件までCSVファイル形式でダウンロード可能です。</description>
+ 大量のランダムIDを短時間で生成 文字数、文字列のカスタム可能  DEMO 最大20万件までCSVファイル形式でダウンロード可能です。</description>
     </item>
     
   </channel>
