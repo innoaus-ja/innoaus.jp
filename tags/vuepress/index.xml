@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Vuepress on innoaus | 株式会社イノス</title>
+    <link>https://innoaus.jp/tags/vuepress/</link>
+    <description>Recent content in Vuepress on innoaus | 株式会社イノス</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Wed, 13 Feb 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://innoaus.jp/tags/vuepress/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>vuepressを試す（デフォルトテーマ）</title>
+      <link>https://innoaus.jp/posts/20190214/</link>
+      <pubDate>Wed, 13 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://innoaus.jp/posts/20190214/</guid>
+      <description>.vuepressフォルダにthemeフォルダを作成し、githubのvuepressデフォルトテーマを参考に必要なフォルダとファイルのみ作成すると上書きされます。
+しかし、githubを参考しながらの作業は大変なので、デフォルトテーマを展開しておきます。
+cd dev_docs npx vuepress eject //vuepressはローカルなのでnpxを利用  .vuepress\themeにデフォルトテーマファイルがコピーされます。
+*まだalphaバージョンなのでディレクトリ構成は変わる可能性があります。
+Home readme.meのyaml部分に以下のように設定するとvuepress.vuejs.orgのトップ画面と同じように表示されます。
+home: true heroImage: /hero.png heroText: Hero Title tagline: Hero subtitle actionText: Get Started → actionLink: /guide/ features: - title: Simplicity First details: Minimal setup with markdown-centered project structure helps you focus on writing. - title: Vue-Powered details: Enjoy the dev experience of Vue + webpack, use Vue components in markdown, and develop custom themes with Vue. - title: Performant details: VuePress generates pre-rendered static HTML for each page, and runs as an SPA once a page is loaded.</description>
+    </item>
+    
+    <item>
+      <title>vuepressを試す（基本設定:メニュー、サイドバー、meta要素設定方法）</title>
+      <link>https://innoaus.jp/posts/20190213/</link>
+      <pubDate>Wed, 13 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://innoaus.jp/posts/20190213/</guid>
+      <description>vuepressを試す（環境準備）の続き
+サイト共通設定　ナビバー、サイドバー dev_docsフォルダにabout.mdを作成します。
+.vuepressフォルダにpublicフォルダとconfig.jsファイルを作成し、以下を記入。
+publicフォルダには静的ファイル（画像など）を配置します。
+module.exports = { themeConfig: { logo : &#39;logo.png&#39;, // \dev_docs\.vuepress\public\logo.png search: true, // 検索機能 nav: [ //ナビバーリンク { text: &#39;Home&#39;, link: &#39;/&#39; }, { text: &#39;About&#39;, link: &#39;/about.html&#39; }, { text: &#39;サブメニュー&#39;, items: [ { text: &#39;メニュー１&#39;, link: &#39;/&#39; }, { text: &#39;メニュー２&#39;, link: &#39;/about.html&#39; }, ] } ], sidebar: [　//サイドバーリンク [&#39;/&#39;, &#39;サイドバーメニュー１&#39;], [&#39;/about.html&#39;, &#39;サイドバーメニュー２&#39;], ] } }  npm run dev  ブラウザhttp://localhost:8080/で確認します。</description>
+    </item>
+    
+    <item>
+      <title>vuepressを試す（環境準備）</title>
+      <link>https://innoaus.jp/posts/20190212/</link>
+      <pubDate>Tue, 12 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://innoaus.jp/posts/20190212/</guid>
+      <description>vuepressは現在バージョン0.xと1.x alpha二つありますが、1.xからはplugin機能が強化され、Blogサイトなどを構築しやすくなっているようです。
+（ドキュメント系サイトならどのバージョンでもそんなに差はないと思います。）
+インストール 今回は1.x alphaバージョンをローカルインストールします。
+作業用フォルダ(vuepress_v1_test)作成後、
+cd vuepress_v1_test npm init -y npm install -D vuepress@next  インストール完了後、フォルダ(dev_docs)を作成します。
+vuepressをローカルインストールしたので、vuepressコマンドを使うことはできませんのでnpm scriptsを利用します。
+package.jsonファイルのscripts部分を次のように変更します。
+&amp;quot;scripts&amp;quot;: { &amp;quot;dev&amp;quot;: &amp;quot;vuepress dev dev_docs&amp;quot;, &amp;quot;build&amp;quot;: &amp;quot;vuepress build dev_docs&amp;quot; },  *scriptsを利用しない場合は
+npx vuepress dev dev_docs  これで環境準備が終わりました。
+markdownファイルを書く dev_docsフォルダにreadme.mdファイルを作成し、markdownを書きます。
+# VuePressテスト  （readme.mdはindex.htmlに変換されます。）
+ブラウザ表示確認 npm run dev  ブラウザからhttp://localhost:8080/を開くとVuePressテストが表示されます。
+readme.mdファイルを編集するとブラウザが自動更新されるので、編集内容を確認しながらmarkdownを書くことができます。
+Build npm run build  buildコマンドを実行すると.vuepress\distフォルダに変換されたHTMLファイルが出力されます。
+基本設定などは次回に。</description>
+    </item>
+    
+  </channel>
+</rss>

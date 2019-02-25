@@ -47,4 +47,10 @@
     <priority>0</priority>
   </url>
   
+  <url>
+    <loc>https://innoaus.jp/tags/vuepress/</loc>
+    <lastmod>2019-02-13T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
 </urlset>
