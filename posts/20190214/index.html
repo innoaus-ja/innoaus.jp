@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<title>
+vuepressを試す（デフォルトテーマ） - innoaus | 株式会社イノス
+</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rel="icon" type="image/png" href="https://innoaus.jp/images/favicon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="title" content="vuepressを試す（デフォルトテーマ） - innoaus | 株式会社イノス">
+<meta name="description" content="vuepressのデフォルトテーマの確認">
+<meta property="og:title" content="vuepressを試す（デフォルトテーマ）">
+
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2019-02-13">
+
+<meta property="og:description" content="vuepressのデフォルトテーマの確認">
+<meta property="og:url" content="https://innoaus.jp/posts/20190214/">
+<meta property="og:site_name" content="innoaus | 株式会社イノス">
+
+<meta property="og:image" content="https://innoaus.jp/images/vuepress_logo.jpg">
+
+
+<meta property="og:tags" content="vuepress">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
+<link rel="stylesheet" href="https://innoaus.jp/assets/app.min.css">
+<link rel="stylesheet" href="https://innoaus.jp/assets/base.css">
+<script src="https://innoaus.jp/assets/prism.js"></script>
+
+ <script async src="https://www.googletagmanager.com/gtag/js?id=UA-134640987-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-134640987-1');
+  </script>
+
+
+</head>
+<body><header class="navbar">
+<div class="container">
+    <div class="navbar-brand">
+        <a href="https://innoaus.jp/" class=""><img src="https://innoaus.jp/images/innoaus_s.png" width="100px;"></a>
+    </div>
+    <div class="navbar-link">
+        <a href="https://innoaus.jp/">Home</a>
+        <a href="https://innoaus.jp/about/">About</a>
+        <a href="https://innoaus.jp/posts/">Blog</a>
+    </div>
+</div>
+</header><div class="container main">
+<div class="content">
+<div>
+    
+    <span class="date">2019.02.13</span>
+    
+</div>
+
+<h1 class="title">vuepressを試す（デフォルトテーマ） 
+    
+    <div style="font-size: .8rem;padding-top:1rem;">
+            
+            <a href="/tags/vuepress" class="chip">vuepress</a>
+            
+    </div>
+    
+</h1>
+
+
+
+<div class="article">
+    
+
+<p><code>.vuepress</code>フォルダに<code>theme</code>フォルダを作成し、githubの<a href="https://github.com/vuejs/vuepress/tree/master/packages/%40vuepress/theme-default">vuepressデフォルトテーマ</a>を参考に必要なフォルダとファイルのみ作成すると上書きされます。<br />
+しかし、githubを参考しながらの作業は大変なので、デフォルトテーマを展開しておきます。</p>
+
+<pre><code class="language-sh">cd dev_docs
+npx vuepress eject //vuepressはローカルなのでnpxを利用
+</code></pre>
+
+<p><code>.vuepress\theme</code>にデフォルトテーマファイルがコピーされます。<br />
+*まだalphaバージョンなのでディレクトリ構成は変わる可能性があります。</p>
+
+<h2 id="home">Home</h2>
+
+<p><code>readme.me</code>の<code>yaml</code>部分に以下のように設定すると<a href="https://vuepress.vuejs.org/">vuepress.vuejs.org</a>のトップ画面と同じように表示されます。</p>
+
+<pre><code class="language-yaml">home: true
+heroImage: /hero.png
+heroText: Hero Title
+tagline: Hero subtitle
+actionText: Get Started →
+actionLink: /guide/
+features:
+- title: Simplicity First
+  details: Minimal setup with markdown-centered project structure helps you focus on writing.
+- title: Vue-Powered
+  details: Enjoy the dev experience of Vue + webpack, use Vue components in markdown, and develop custom themes with Vue.
+- title: Performant
+  details: VuePress generates pre-rendered static HTML for each page, and runs as an SPA once a page is loaded.
+</code></pre>
+
+<p><code>.vuepress\theme\components\Home.vue</code>にyaml内容が反映されることなので、<code>Home.vue</code>を直接編集するのも方法かと思います。</p>
+
+<h2 id="sidebar">sidebar</h2>
+
+<p>サイドバーも<code>Sidebar***.vue</code>ファイルが使用されるので、必要に応じて編集します。</p>
+
+<h2 id="css-style">CSS style</h2>
+
+<p>vuepressはStylus記法を使用しています。<br />
+stylファイルは<code>.vuepress\theme\styles</code>にあります。</p>
+
+</div>
+
+
+</div><div class="sidebar">
+
+<div class="wrap">
+    <h3>Product & Service</h3>
+    <ul class="ad">
+        <li><a href="https://rainpass.io/ja/" target="_blank">RAINPASS One Time ID</a></li>
+        <li><a href="https://innoaus.jp/random_id_generator">Random ID Generater</a></li>
+    </ul>
+</div><div class="wrap posts">
+    <h3>Recent Post</h3>
+    <ul>
+        
+        <li><span class="date">2019.02.13</span><br><a href="/posts/20190214/">vuepressを試す（デフォルトテーマ）</a></li>
+        
+        <li><span class="date">2019.02.13</span><br><a href="/posts/20190213/">vuepressを試す（基本設定:メニュー、サイドバー、meta要素設定方法）</a></li>
+        
+        <li><span class="date">2019.02.12</span><br><a href="/posts/20190212/">vuepressを試す（環境準備）</a></li>
+        
+    </ul>
+
+</div>
+
+</div>
+</div><div class="footer">
+        <div class="container">© 2019 Innoaus Inc. All Rights Reserved.</div>
+</div></body>
+</html>
