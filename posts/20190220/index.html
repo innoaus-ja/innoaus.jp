@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<title>
+vuepressを試す（基本設定:メニュー、サイドバー、meta要素設定方法） - innoaus | 株式会社イノス
+</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rel="icon" type="image/png" href="https://innoaus.jp/images/favicon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="title" content="vuepressを試す（基本設定:メニュー、サイドバー、meta要素設定方法） - innoaus | 株式会社イノス">
+<meta name="description" content="vuepressのメニュー、サイドバー、meta要素設定方法">
+<meta property="og:title" content="vuepressを試す（基本設定:メニュー、サイドバー、meta要素設定方法）">
+
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2019-02-20">
+
+<meta property="og:description" content="vuepressのメニュー、サイドバー、meta要素設定方法">
+<meta property="og:url" content="https://innoaus.jp/posts/20190220/">
+<meta property="og:site_name" content="innoaus | 株式会社イノス">
+
+<meta property="og:image" content="https://innoaus.jp/images/vuepress_logo.jpg">
+
+
+<meta property="og:tags" content="vuepress">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
+<link rel="stylesheet" href="https://innoaus.jp/assets/app.min.css">
+<link rel="stylesheet" href="https://innoaus.jp/assets/base.css">
+<script src="https://innoaus.jp/assets/prism.js"></script>
+
+ <script async src="https://www.googletagmanager.com/gtag/js?id=UA-134640987-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-134640987-1');
+  </script>
+
+
+</head>
+<body><header class="navbar">
+<div class="container">
+    <div class="navbar-brand">
+        <a href="https://innoaus.jp/" class=""><img src="https://innoaus.jp/images/innoaus_s.png" width="100px;"></a>
+    </div>
+    <div class="navbar-link">
+        <a href="https://innoaus.jp/">Home</a>
+        <a href="https://innoaus.jp/about/">About</a>
+        <a href="https://innoaus.jp/posts/">Blog</a>
+    </div>
+</div>
+</header><div class="container main">
+<div class="content">
+<div>
+    
+    <span class="date">2019.02.20</span>
+    
+</div>
+
+<h1 class="title">vuepressを試す（基本設定:メニュー、サイドバー、meta要素設定方法） 
+    
+    <div style="font-size: .8rem;padding-top:1rem;">
+            
+            <a href="/tags/vuepress" class="chip">vuepress</a>
+            
+    </div>
+    
+</h1>
+
+
+
+<div class="article">
+    
+
+<p><a href="https://innoaus.jp/post/20190212">vuepressを試す（環境準備）</a>の続き</p>
+
+<h2 id="サイト共通設定-ナビバー-サイドバー">サイト共通設定　ナビバー、サイドバー</h2>
+
+<p><code>dev_docs</code>フォルダに<code>about.md</code>を作成します。<br />
+<code>.vuepress</code>フォルダに<code>public</code>フォルダと<code>config.js</code>ファイルを作成し、以下を記入。<br />
+<code>public</code>フォルダには静的ファイル（画像など）を配置します。</p>
+
+<pre><code class="language-js">module.exports = {
+    themeConfig: {
+        logo : 'logo.png', // \dev_docs\.vuepress\public\logo.png
+        search: true, // 検索機能
+        nav: [ //ナビバーリンク
+            { text: 'Home', link: '/' },
+            { text: 'About', link: '/about.html' },
+            { text: 'サブメニュー',
+                items: [
+                    { text: 'メニュー１', link: '/' },
+                    { text: 'メニュー２', link: '/about.html' },
+                ]
+            }
+        ],
+        sidebar: [　//サイドバーリンク
+            ['/', 'サイドバーメニュー１'],
+            ['/about.html', 'サイドバーメニュー２'],
+        ]
+    }
+}
+</code></pre>
+
+<pre><code class="language-sh">npm run dev
+</code></pre>
+
+<p>ブラウザ<code>http://localhost:8080/</code>で確認します。<br />
+<code>config.js</code>を修正した内容はリアルタイムで反映されないので,都度<code>npm run dev</code>を実行する必要があります。</p>
+
+<h2 id="ページ別meta要素設定">ページ別meta要素設定</h2>
+
+<p>ページ別のtitle, descriptionなどのmeta要素はmdファイル上部に<code>yaml</code>形式で書いておくと反映されます。（<code>---</code>で囲む）<br />
+＊<code>config.js</code>の<code>locales</code>からも設定可能。</p>
+
+<pre><code class="language-yaml">---
+title: ページタイトル
+description: ページの説明文
+meta:
+- name: keywords
+  content: キーワード
+- property: og:image
+  content: http://localhost:8080/logo.png
+- property: og:desciption
+  content: ページの説明文
+---
+</code></pre>
+
+<p>以下のように変換されます。</p>
+
+<pre><code class="language-html">&lt;title&gt;ページタイトル&lt;/title&gt;
+&lt;meta name=&quot;description&quot; content=&quot;ページの説明文&quot;&gt;
+&lt;meta name=&quot;keywords&quot; content=&quot;キーワード&quot;&gt;
+&lt;meta property=&quot;og:image&quot; content=&quot;http://localhost:8080/logo.png&quot;&gt;
+&lt;meta property=&quot;og:desciption&quot; content=&quot;ページの説明文&quot;&gt;
+</code></pre>
+
+</div>
+
+
+</div><div class="sidebar">
+
+<div class="wrap">
+    <h3>Product & Service</h3>
+    <ul class="ad">
+        <li><a href="https://rainpass.io/ja/" target="_blank">RAINPASS One Time ID</a></li>
+        <li><a href="https://innoaus.jp/random_id_generator">Random ID Generater</a></li>
+    </ul>
+</div><div class="wrap posts">
+    <h3>Recent Post</h3>
+    <ul>
+        
+        <li><span class="date">2019.02.26</span><br><a href="/posts/20190226/">C&#43;&#43;コンソールアプリケーションに色をつける</a></li>
+        
+        <li><span class="date">2019.02.24</span><br><a href="/posts/20190224/">golangインストール（CentOS7）</a></li>
+        
+        <li><span class="date">2019.02.22</span><br><a href="/posts/20190222/">vuepressを試す（デフォルトテーマ）</a></li>
+        
+        <li><span class="date">2019.02.20</span><br><a href="/posts/20190220/">vuepressを試す（基本設定:メニュー、サイドバー、meta要素設定方法）</a></li>
+        
+        <li><span class="date">2019.02.18</span><br><a href="/posts/20190218/">vuepressを試す（環境準備）</a></li>
+        
+    </ul>
+
+</div>
+
+</div>
+</div><div class="footer">
+        <div class="container">© 2019 Innoaus Inc. All Rights Reserved.</div>
+</div></body>
+</html>

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<title>
+golangインストール（CentOS7） - innoaus | 株式会社イノス
+</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rel="icon" type="image/png" href="https://innoaus.jp/images/favicon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="title" content="golangインストール（CentOS7） - innoaus | 株式会社イノス">
+<meta name="description" content="golangインストール（CentOS7）">
+<meta property="og:title" content="golangインストール（CentOS7）">
+
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2019-02-24">
+
+<meta property="og:description" content="golangインストール（CentOS7）">
+<meta property="og:url" content="https://innoaus.jp/posts/20190224/">
+<meta property="og:site_name" content="innoaus | 株式会社イノス">
+
+<meta property="og:image" content="https://innoaus.jp/images/golang_1.png">
+
+
+<meta property="og:tags" content="golang">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
+<link rel="stylesheet" href="https://innoaus.jp/assets/app.min.css">
+<link rel="stylesheet" href="https://innoaus.jp/assets/base.css">
+<script src="https://innoaus.jp/assets/prism.js"></script>
+
+ <script async src="https://www.googletagmanager.com/gtag/js?id=UA-134640987-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-134640987-1');
+  </script>
+
+
+</head>
+<body><header class="navbar">
+<div class="container">
+    <div class="navbar-brand">
+        <a href="https://innoaus.jp/" class=""><img src="https://innoaus.jp/images/innoaus_s.png" width="100px;"></a>
+    </div>
+    <div class="navbar-link">
+        <a href="https://innoaus.jp/">Home</a>
+        <a href="https://innoaus.jp/about/">About</a>
+        <a href="https://innoaus.jp/posts/">Blog</a>
+    </div>
+</div>
+</header><div class="container main">
+<div class="content">
+<div>
+    
+    <span class="date">2019.02.24</span>
+    
+</div>
+
+<h1 class="title">golangインストール（CentOS7） 
+    
+    <div style="font-size: .8rem;padding-top:1rem;">
+            
+            <a href="/tags/golang" class="chip">golang</a>
+            
+    </div>
+    
+</h1>
+
+
+
+<div class="article">
+    
+
+<h2 id="準備">準備</h2>
+
+<p>すべてのユーザーが利用する場合はsudo権限が必要です。<br />
+もし、特定のユーザーのみである場合は必要ありません。</p>
+
+<h2 id="goインストール">goインストール</h2>
+
+<p>現在最新バージョンは<code>1.12</code><br />
+<code>wget</code>コマンドを利用しダウンロードます。</p>
+
+<pre><code class="language-sh">$ wget https://dl.google.com/go/go1.12.linux-amd64.tar.gz
+</code></pre>
+
+<h3 id="チェックサム確認">チェックサム確認</h3>
+
+<p><code>sha256 checksum</code>を利用しチェックサムを確認します。<br />
+ダウンロードしたファイルの<code>checksum</code>を確認し、サイトの<code>SHA256 Checksum</code>と同じか確認します。<br />
+<a href="https://golang.org/dl/の`go1.12.linux-amd64.tar.gz`のSHA256">https://golang.org/dl/の`go1.12.linux-amd64.tar.gz`のSHA256</a> <code>Checksum</code>は<code>750a07fef8579ae4839458701f4df690e0b20b8bcce33b437e4df89c451b6f13</code></p>
+
+<pre><code class="language-sh">$ sha256checkup go1.12.linux-amd64.tar.gz 
+750a07fef8579ae4839458701f4df690e0b20b8bcce33b437e4df89c451b6f13  go1.12.linux-amd64.tar.gz
+</code></pre>
+
+<h3 id="ダウンロードしたファイル解凍">ダウンロードしたファイル解凍</h3>
+
+<p>ダウンロードしたパッケージはすでにCentOS7用にビルドされているので解凍してそのまま使用可能です。</p>
+
+<pre><code class="language-sh">$ tar xvfz go1.12.linux-amd64.tar.gz
+</code></pre>
+
+<p>解凍すると<code>go, gocache, tmp</code>フォルダが作成されます。</p>
+
+<h3 id="go実行-バージョン確認">go実行（バージョン確認）</h3>
+
+<p><code>bin</code>ディレクトリに移動し</p>
+
+<pre><code class="language-sh">$ cd go/bin
+$ ./go version
+go version go1.12 linux/amd64
+</code></pre>
+
+<p>goの前に<code>./</code>を付けないといけないことに注意。</p>
+
+<h3 id="環境変数設定">環境変数設定</h3>
+
+<p>毎回<code>bin</code>まで指定・移動するのは効率が良くないので<code>~/.bash_profile</code>にPATHを通します。</p>
+
+<pre><code class="language-sh">$ vi ~/.bash_profile
+export PATH=$PATH:{解凍ディレクトリ}/go/bin
+</code></pre>
+
+<p>このままでは変更が反映されないので、ログアウトしなおすか、</p>
+
+<pre><code class="language-sh">$ source ~/.bash_profile
+</code></pre>
+
+<p>または</p>
+
+<pre><code class="language-sh">$ . ~./bash_profile
+</code></pre>
+
+<p>PATHが通っているか確認します。
+<code>./</code>無し。</p>
+
+<pre><code class="language-sh">$ go version
+go version go1.12 linux/amd64
+</code></pre>
+
+</div>
+
+
+</div><div class="sidebar">
+
+<div class="wrap">
+    <h3>Product & Service</h3>
+    <ul class="ad">
+        <li><a href="https://rainpass.io/ja/" target="_blank">RAINPASS One Time ID</a></li>
+        <li><a href="https://innoaus.jp/random_id_generator">Random ID Generater</a></li>
+    </ul>
+</div><div class="wrap posts">
+    <h3>Recent Post</h3>
+    <ul>
+        
+        <li><span class="date">2019.02.26</span><br><a href="/posts/20190226/">C&#43;&#43;コンソールアプリケーションに色をつける</a></li>
+        
+        <li><span class="date">2019.02.24</span><br><a href="/posts/20190224/">golangインストール（CentOS7）</a></li>
+        
+        <li><span class="date">2019.02.22</span><br><a href="/posts/20190222/">vuepressを試す（デフォルトテーマ）</a></li>
+        
+        <li><span class="date">2019.02.20</span><br><a href="/posts/20190220/">vuepressを試す（基本設定:メニュー、サイドバー、meta要素設定方法）</a></li>
+        
+        <li><span class="date">2019.02.18</span><br><a href="/posts/20190218/">vuepressを試す（環境準備）</a></li>
+        
+    </ul>
+
+</div>
+
+</div>
+</div><div class="footer">
+        <div class="container">© 2019 Innoaus Inc. All Rights Reserved.</div>
+</div></body>
+</html>

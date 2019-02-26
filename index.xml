@@ -6,17 +6,54 @@
     <description>Recent content on innoaus | 株式会社イノス</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 13 Feb 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 26 Feb 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://innoaus.jp/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>vuepressを試す（デフォルトテーマ）</title>
-      <link>https://innoaus.jp/posts/20190214/</link>
-      <pubDate>Wed, 13 Feb 2019 00:00:00 +0000</pubDate>
+      <title>C&#43;&#43;コンソールアプリケーションに色をつける</title>
+      <link>https://innoaus.jp/posts/20190226/</link>
+      <pubDate>Tue, 26 Feb 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://innoaus.jp/posts/20190214/</guid>
+      <guid>https://innoaus.jp/posts/20190226/</guid>
+      <description>プロジェクトrangはヘッダファイルのみで動作するコンソールアプリケーションに色をつけるオープンソースです。
+https://github.com/agauniyal/rang
+Colors for your Terminal. Unix-like (Linux, unix, mac) Windows Demo 必要ライブラリ rangはC++ standard libraryのみで動作するため、追加ライブラリは必要ありません。
+インストール $ git clone https://github.com/agauniyal/rang.git  適用 インストールフォルダのinclude/rang.hppファイルをコピーするか、includeフォルダをプロジェクトパスに追加します。
+オプション Text Styles    Code Linux/Win/Others Old Win     rang::style::bold yes yes   rang::style::dim yes no   rang::style::italic yes no   rang::style::underline yes no   rang::style::blink no no   rang::style::rblink no no   rang::style::reversed yes yes   rang::style::conceal maybe yes   rang::style::crossed yes no    Text Color    Code Linux/Win/Others Old Win     rang::fg::black yes yes   rang::fg::red yes yes   rang::fg::green yes yes   rang::fg::yellow yes yes   rang::fg::blue yes yes   rang::fg::magenta yes yes   rang::fg::cyan yes yes   rang::fg::gray yes yes    Background Color    Code Linux/Win/Others Old Win     rang::bg::black yes yes   rang::bg::red yes yes   rang::bg::green yes yes   rang::bg::yellow yes yes   rang::bg::blue yes yes   rang::bg::magenta yes yes   rang::bg::cyan yes yes   rang::bg::gray yes yes    Bright Foreground Color    Code Linux/Win/Others Old Win     rang::fgB::black yes yes   rang::fgB::red yes yes   rang::fgB::green yes yes   rang::fgB::yellow yes yes   rang::fgB::blue yes yes   rang::fgB::magenta yes yes   rang::fgB::cyan yes yes   rang::fgB::gray yes yes    Bright Background Color    Code Linux/Win/Others Old Win     rang::bgB::black yes yes   rang::bgB::red yes yes   rang::bgB::green yes yes   rang::bgB::yellow yes yes   rang::bgB::blue yes yes   rang::bgB::magenta yes yes   rang::bgB::cyan yes yes   rang::bgB::gray yes yes    Reset Styles/Colors    Code Linux/Win/Others Old Win     rang::style::reset yes yes   rang::fg::reset yes yes   rang::bg::reset yes yes    簡単なsample code #include &amp;quot;rang.</description>
+    </item>
+    
+    <item>
+      <title>golangインストール（CentOS7）</title>
+      <link>https://innoaus.jp/posts/20190224/</link>
+      <pubDate>Sun, 24 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://innoaus.jp/posts/20190224/</guid>
+      <description>準備 すべてのユーザーが利用する場合はsudo権限が必要です。
+もし、特定のユーザーのみである場合は必要ありません。
+goインストール 現在最新バージョンは1.12
+wgetコマンドを利用しダウンロードます。
+$ wget https://dl.google.com/go/go1.12.linux-amd64.tar.gz  チェックサム確認 sha256 checksumを利用しチェックサムを確認します。
+ダウンロードしたファイルのchecksumを確認し、サイトのSHA256 Checksumと同じか確認します。
+https://golang.org/dl/の`go1.12.linux-amd64.tar.gz`のSHA256 Checksumは750a07fef8579ae4839458701f4df690e0b20b8bcce33b437e4df89c451b6f13
+$ sha256checkup go1.12.linux-amd64.tar.gz 750a07fef8579ae4839458701f4df690e0b20b8bcce33b437e4df89c451b6f13 go1.12.linux-amd64.tar.gz  ダウンロードしたファイル解凍 ダウンロードしたパッケージはすでにCentOS7用にビルドされているので解凍してそのまま使用可能です。
+$ tar xvfz go1.12.linux-amd64.tar.gz  解凍するとgo, gocache, tmpフォルダが作成されます。
+go実行（バージョン確認） binディレクトリに移動し
+$ cd go/bin $ ./go version go version go1.12 linux/amd64  goの前に./を付けないといけないことに注意。
+環境変数設定 毎回binまで指定・移動するのは効率が良くないので~/.bash_profileにPATHを通します。
+$ vi ~/.bash_profile export PATH=$PATH:{解凍ディレクトリ}/go/bin  このままでは変更が反映されないので、ログアウトしなおすか、
+$ source ~/.bash_profile  または
+$ . ~./bash_profile  PATHが通っているか確認します。 ./無し。
+$ go version go version go1.</description>
+    </item>
+    
+    <item>
+      <title>vuepressを試す（デフォルトテーマ）</title>
+      <link>https://innoaus.jp/posts/20190222/</link>
+      <pubDate>Fri, 22 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://innoaus.jp/posts/20190222/</guid>
       <description>.vuepressフォルダにthemeフォルダを作成し、githubのvuepressデフォルトテーマを参考に必要なフォルダとファイルのみ作成すると上書きされます。
 しかし、githubを参考しながらの作業は大変なので、デフォルトテーマを展開しておきます。
 cd dev_docs npx vuepress eject //vuepressはローカルなのでnpxを利用  .vuepress\themeにデフォルトテーマファイルがコピーされます。
@@ -27,10 +64,10 @@ home: true heroImage: /hero.png heroText: Hero Title tagline: Hero subtitle acti
     
     <item>
       <title>vuepressを試す（基本設定:メニュー、サイドバー、meta要素設定方法）</title>
-      <link>https://innoaus.jp/posts/20190213/</link>
-      <pubDate>Wed, 13 Feb 2019 00:00:00 +0000</pubDate>
+      <link>https://innoaus.jp/posts/20190220/</link>
+      <pubDate>Wed, 20 Feb 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://innoaus.jp/posts/20190213/</guid>
+      <guid>https://innoaus.jp/posts/20190220/</guid>
       <description>vuepressを試す（環境準備）の続き
 サイト共通設定　ナビバー、サイドバー dev_docsフォルダにabout.mdを作成します。
 .vuepressフォルダにpublicフォルダとconfig.jsファイルを作成し、以下を記入。
@@ -40,10 +77,10 @@ module.exports = { themeConfig: { logo : &#39;logo.png&#39;, // \dev_docs\.vuepr
     
     <item>
       <title>vuepressを試す（環境準備）</title>
-      <link>https://innoaus.jp/posts/20190212/</link>
-      <pubDate>Tue, 12 Feb 2019 00:00:00 +0000</pubDate>
+      <link>https://innoaus.jp/posts/20190218/</link>
+      <pubDate>Mon, 18 Feb 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://innoaus.jp/posts/20190212/</guid>
+      <guid>https://innoaus.jp/posts/20190218/</guid>
       <description>vuepressは現在バージョン0.xと1.x alpha二つありますが、1.xからはplugin機能が強化され、Blogサイトなどを構築しやすくなっているようです。
 （ドキュメント系サイトならどのバージョンでもそんなに差はないと思います。）
 インストール 今回は1.x alphaバージョンをローカルインストールします。
@@ -62,16 +99,6 @@ Build npm run build  buildコマンドを実行すると.vuepress\distフォル�
     </item>
     
     <item>
-      <title>会社情報</title>
-      <link>https://innoaus.jp/about/</link>
-      <pubDate>Sat, 01 Apr 2017 00:00:00 +0000</pubDate>
-      
-      <guid>https://innoaus.jp/about/</guid>
-      <description>会社名 : 株式会社イノス（Innoaus、大阪府大阪市）  Skill  OS Embedded OS, Unix, Linux, Windows, Mac OS, iOS, Android Language C, C++, C#, Java, Objective-C, Swift, Javascript, PHP Database PostgresSQL, MS SQL, MySQL, Oracle 3rd Party Lib Crypto++, ACE, ICE, BOOST, ZeroMQ, OpenSSL, Xtreme Toolkit, DevExpress  
-Contact info@innoaus.jp</description>
-    </item>
-    
-    <item>
       <title>Random ID Generator</title>
       <link>https://innoaus.jp/random_id_generator/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -79,6 +106,16 @@ Contact info@innoaus.jp</description>
       <guid>https://innoaus.jp/random_id_generator/</guid>
       <description>独自開発したID生成アルゴリズム（RAINPASS）を用いたランダムID生成器
  大量のランダムIDを短時間で生成 文字数、文字列のカスタム可能  DEMO 最大20万件までCSVファイル形式でダウンロード可能です。</description>
+    </item>
+    
+    <item>
+      <title>会社情報</title>
+      <link>https://innoaus.jp/about/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://innoaus.jp/about/</guid>
+      <description>会社名 : 株式会社イノス（Innoaus、大阪府大阪市）  Skill  OS Embedded OS, Unix, Linux, Windows, Mac OS, iOS, Android Language C, C++, C#, Java, Objective-C, Swift, Javascript, PHP Database PostgresSQL, MS SQL, MySQL, Oracle 3rd Party Lib Crypto++, ACE, ICE, BOOST, ZeroMQ, OpenSSL, Xtreme Toolkit, DevExpress  
+Contact info@innoaus.jp</description>
     </item>
     
   </channel>

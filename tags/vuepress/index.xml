@@ -6,17 +6,17 @@
     <description>Recent content in Vuepress on innoaus | 株式会社イノス</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 13 Feb 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 22 Feb 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://innoaus.jp/tags/vuepress/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>vuepressを試す（デフォルトテーマ）</title>
-      <link>https://innoaus.jp/posts/20190214/</link>
-      <pubDate>Wed, 13 Feb 2019 00:00:00 +0000</pubDate>
+      <link>https://innoaus.jp/posts/20190222/</link>
+      <pubDate>Fri, 22 Feb 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://innoaus.jp/posts/20190214/</guid>
+      <guid>https://innoaus.jp/posts/20190222/</guid>
       <description>.vuepressフォルダにthemeフォルダを作成し、githubのvuepressデフォルトテーマを参考に必要なフォルダとファイルのみ作成すると上書きされます。
 しかし、githubを参考しながらの作業は大変なので、デフォルトテーマを展開しておきます。
 cd dev_docs npx vuepress eject //vuepressはローカルなのでnpxを利用  .vuepress\themeにデフォルトテーマファイルがコピーされます。
@@ -27,10 +27,10 @@ home: true heroImage: /hero.png heroText: Hero Title tagline: Hero subtitle acti
     
     <item>
       <title>vuepressを試す（基本設定:メニュー、サイドバー、meta要素設定方法）</title>
-      <link>https://innoaus.jp/posts/20190213/</link>
-      <pubDate>Wed, 13 Feb 2019 00:00:00 +0000</pubDate>
+      <link>https://innoaus.jp/posts/20190220/</link>
+      <pubDate>Wed, 20 Feb 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://innoaus.jp/posts/20190213/</guid>
+      <guid>https://innoaus.jp/posts/20190220/</guid>
       <description>vuepressを試す（環境準備）の続き
 サイト共通設定　ナビバー、サイドバー dev_docsフォルダにabout.mdを作成します。
 .vuepressフォルダにpublicフォルダとconfig.jsファイルを作成し、以下を記入。
@@ -40,10 +40,10 @@ module.exports = { themeConfig: { logo : &#39;logo.png&#39;, // \dev_docs\.vuepr
     
     <item>
       <title>vuepressを試す（環境準備）</title>
-      <link>https://innoaus.jp/posts/20190212/</link>
-      <pubDate>Tue, 12 Feb 2019 00:00:00 +0000</pubDate>
+      <link>https://innoaus.jp/posts/20190218/</link>
+      <pubDate>Mon, 18 Feb 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://innoaus.jp/posts/20190212/</guid>
+      <guid>https://innoaus.jp/posts/20190218/</guid>
       <description>vuepressは現在バージョン0.xと1.x alpha二つありますが、1.xからはplugin機能が強化され、Blogサイトなどを構築しやすくなっているようです。
 （ドキュメント系サイトならどのバージョンでもそんなに差はないと思います。）
 インストール 今回は1.x alphaバージョンをローカルインストールします。

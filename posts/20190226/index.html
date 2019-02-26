@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<title>
+C&#43;&#43;コンソールアプリケーションに色をつける - innoaus | 株式会社イノス
+</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rel="icon" type="image/png" href="https://innoaus.jp/images/favicon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="title" content="C&#43;&#43;コンソールアプリケーションに色をつける - innoaus | 株式会社イノス">
+<meta name="description" content="C&#43;&#43;コンソールアプリケーションに色をつける">
+<meta property="og:title" content="C&#43;&#43;コンソールアプリケーションに色をつける">
+
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2019-02-26">
+
+<meta property="og:description" content="C&#43;&#43;コンソールアプリケーションに色をつける">
+<meta property="og:url" content="https://innoaus.jp/posts/20190226/">
+<meta property="og:site_name" content="innoaus | 株式会社イノス">
+
+<meta property="og:image" content="https://innoaus.jp/images/console_1.png">
+
+
+<meta property="og:tags" content="TIP">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
+<link rel="stylesheet" href="https://innoaus.jp/assets/app.min.css">
+<link rel="stylesheet" href="https://innoaus.jp/assets/base.css">
+<script src="https://innoaus.jp/assets/prism.js"></script>
+
+ <script async src="https://www.googletagmanager.com/gtag/js?id=UA-134640987-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-134640987-1');
+  </script>
+
+
+</head>
+<body><header class="navbar">
+<div class="container">
+    <div class="navbar-brand">
+        <a href="https://innoaus.jp/" class=""><img src="https://innoaus.jp/images/innoaus_s.png" width="100px;"></a>
+    </div>
+    <div class="navbar-link">
+        <a href="https://innoaus.jp/">Home</a>
+        <a href="https://innoaus.jp/about/">About</a>
+        <a href="https://innoaus.jp/posts/">Blog</a>
+    </div>
+</div>
+</header><div class="container main">
+<div class="content">
+<div>
+    
+    <span class="date">2019.02.26</span>
+    
+</div>
+
+<h1 class="title">C&#43;&#43;コンソールアプリケーションに色をつける 
+    
+    <div style="font-size: .8rem;padding-top:1rem;">
+            
+            <a href="/tags/tip" class="chip">TIP</a>
+            
+    </div>
+    
+</h1>
+
+
+
+<div class="article">
+    
+
+<p>プロジェクトrangはヘッダファイルのみで動作するコンソールアプリケーションに色をつけるオープンソースです。<br />
+<a href="https://github.com/agauniyal/rang">https://github.com/agauniyal/rang</a></p>
+
+<h5 id="colors-for-your-terminal">Colors for your Terminal.</h5>
+
+<p>Unix-like (Linux, unix, mac)
+<img src="https://cloud.githubusercontent.com/assets/7630575/13501282/0bd00074-e18c-11e5-9848-5bd1f20566d9.gif" alt="rang-demo" /></p>
+
+<p>Windows Demo
+<img src="https://cloud.githubusercontent.com/assets/11349690/19836886/8134975e-9ebe-11e6-9ee4-c4657784ff3b.gif" alt="rang-windows-demo" /></p>
+
+<h2 id="必要ライブラリ">必要ライブラリ</h2>
+
+<p>rangはC++ standard libraryのみで動作するため、追加ライブラリは必要ありません。</p>
+
+<h2 id="インストール">インストール</h2>
+
+<pre><code class="language-sh">$ git clone https://github.com/agauniyal/rang.git 
+</code></pre>
+
+<h2 id="適用">適用</h2>
+
+<p>インストールフォルダの<code>include/rang.hpp</code>ファイルをコピーするか、<code>include</code>フォルダをプロジェクトパスに追加します。</p>
+
+<h2 id="オプション">オプション</h2>
+
+<h4 id="text-styles">Text Styles</h4>
+
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Linux/Win/Others</th>
+<th>Old Win</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><code>rang::style::bold</code></td>
+<td>yes</td>
+<td>yes</td>
+</tr>
+
+<tr>
+<td><code>rang::style::dim</code></td>
+<td>yes</td>
+<td>no</td>
+</tr>
+
+<tr>
+<td><code>rang::style::italic</code></td>
+<td>yes</td>
+<td>no</td>
+</tr>
+
+<tr>
+<td><code>rang::style::underline</code></td>
+<td>yes</td>
+<td>no</td>
+</tr>
+
+<tr>
+<td><code>rang::style::blink</code></td>
+<td>no</td>
+<td>no</td>
+</tr>
+
+<tr>
+<td><code>rang::style::rblink</code></td>
+<td>no</td>
+<td>no</td>
+</tr>
+
+<tr>
+<td><code>rang::style::reversed</code></td>
+<td>yes</td>
+<td>yes</td>
+</tr>
+
+<tr>
+<td><code>rang::style::conceal</code></td>
+<td>maybe</td>
+<td>yes</td>
+</tr>
+
+<tr>
+<td><code>rang::style::crossed</code></td>
+<td>yes</td>
+<td>no</td>
+</tr>
+</tbody>
+</table>
+
+<h4 id="text-color">Text Color</h4>
+
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Linux/Win/Others</th>
+<th>Old Win</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><code>rang::fg::black</code></td>
+<td>yes</td>
+<td>yes</td>
+</tr>
+
+<tr>
+<td><code>rang::fg::red</code></td>
+<td>yes</td>
+<td>yes</td>
+</tr>
+
+<tr>
+<td><code>rang::fg::green</code></td>
+<td>yes</td>
+<td>yes</td>
+</tr>
+
+<tr>
+<td><code>rang::fg::yellow</code></td>
+<td>yes</td>
+<td>yes</td>
+</tr>
+
+<tr>
+<td><code>rang::fg::blue</code></td>
+<td>yes</td>
+<td>yes</td>
+</tr>
+
+<tr>
+<td><code>rang::fg::magenta</code></td>
+<td>yes</td>
+<td>yes</td>
+</tr>
+
+<tr>
+<td><code>rang::fg::cyan</code></td>
+<td>yes</td>
+<td>yes</td>
+</tr>
+
+<tr>
+<td><code>rang::fg::gray</code></td>
+<td>yes</td>
+<td>yes</td>
+</tr>
+</tbody>
+</table>
+
+<h4 id="background-color">Background Color</h4>
+
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Linux/Win/Others</th>
+<th>Old Win</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><code>rang::bg::black</code></td>
+<td>yes</td>
+<td>yes</td>
+</tr>
+
+<tr>
+<td><code>rang::bg::red</code></td>
+<td>yes</td>
+<td>yes</td>
+</tr>
+
+<tr>
+<td><code>rang::bg::green</code></td>
+<td>yes</td>
+<td>yes</td>
+</tr>
+
+<tr>
+<td><code>rang::bg::yellow</code></td>
+<td>yes</td>
+<td>yes</td>
+</tr>
+
+<tr>
+<td><code>rang::bg::blue</code></td>
+<td>yes</td>
+<td>yes</td>
+</tr>
+
+<tr>
+<td><code>rang::bg::magenta</code></td>
+<td>yes</td>
+<td>yes</td>
+</tr>
+
+<tr>
+<td><code>rang::bg::cyan</code></td>
+<td>yes</td>
+<td>yes</td>
+</tr>
+
+<tr>
+<td><code>rang::bg::gray</code></td>
+<td>yes</td>
+<td>yes</td>
+</tr>
+</tbody>
+</table>
+
+<h4 id="bright-foreground-color">Bright Foreground Color</h4>
+
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Linux/Win/Others</th>
+<th>Old Win</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><code>rang::fgB::black</code></td>
+<td>yes</td>
+<td>yes</td>
+</tr>
+
+<tr>
+<td><code>rang::fgB::red</code></td>
+<td>yes</td>
+<td>yes</td>
+</tr>
+
+<tr>
+<td><code>rang::fgB::green</code></td>
+<td>yes</td>
+<td>yes</td>
+</tr>
+
+<tr>
+<td><code>rang::fgB::yellow</code></td>
+<td>yes</td>
+<td>yes</td>
+</tr>
+
+<tr>
+<td><code>rang::fgB::blue</code></td>
+<td>yes</td>
+<td>yes</td>
+</tr>
+
+<tr>
+<td><code>rang::fgB::magenta</code></td>
+<td>yes</td>
+<td>yes</td>
+</tr>
+
+<tr>
+<td><code>rang::fgB::cyan</code></td>
+<td>yes</td>
+<td>yes</td>
+</tr>
+
+<tr>
+<td><code>rang::fgB::gray</code></td>
+<td>yes</td>
+<td>yes</td>
+</tr>
+</tbody>
+</table>
+
+<h4 id="bright-background-color">Bright Background Color</h4>
+
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Linux/Win/Others</th>
+<th>Old Win</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><code>rang::bgB::black</code></td>
+<td>yes</td>
+<td>yes</td>
+</tr>
+
+<tr>
+<td><code>rang::bgB::red</code></td>
+<td>yes</td>
+<td>yes</td>
+</tr>
+
+<tr>
+<td><code>rang::bgB::green</code></td>
+<td>yes</td>
+<td>yes</td>
+</tr>
+
+<tr>
+<td><code>rang::bgB::yellow</code></td>
+<td>yes</td>
+<td>yes</td>
+</tr>
+
+<tr>
+<td><code>rang::bgB::blue</code></td>
+<td>yes</td>
+<td>yes</td>
+</tr>
+
+<tr>
+<td><code>rang::bgB::magenta</code></td>
+<td>yes</td>
+<td>yes</td>
+</tr>
+
+<tr>
+<td><code>rang::bgB::cyan</code></td>
+<td>yes</td>
+<td>yes</td>
+</tr>
+
+<tr>
+<td><code>rang::bgB::gray</code></td>
+<td>yes</td>
+<td>yes</td>
+</tr>
+</tbody>
+</table>
+
+<h4 id="reset-styles-colors">Reset Styles/Colors</h4>
+
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Linux/Win/Others</th>
+<th>Old Win</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><code>rang::style::reset</code></td>
+<td>yes</td>
+<td>yes</td>
+</tr>
+
+<tr>
+<td><code>rang::fg::reset</code></td>
+<td>yes</td>
+<td>yes</td>
+</tr>
+
+<tr>
+<td><code>rang::bg::reset</code></td>
+<td>yes</td>
+<td>yes</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="簡単なsample-code">簡単なsample code</h2>
+
+<pre><code class="language-c++">#include &quot;rang.hpp&quot;
+int main()
+{
+    rang::setControlMode(rang::control::Auto); 
+    // rang::control::Auto　//コンソルが色をサポートするかを自動検出
+    // rang::control::Off // 適用解除
+    // rang::control::Force //強制適用
+    
+    std::cout &lt;&lt; &quot;Hello world !!!&quot; 
+              &lt;&lt; rang::style::bold 
+              &lt;&lt; &quot;Rang styled text !!!&quot;
+              &lt;&lt; rang::style::reset &lt;&lt; std::endl;
+    return 0;
+}
+</code></pre>
+
+</div>
+
+
+</div><div class="sidebar">
+
+<div class="wrap">
+    <h3>Product & Service</h3>
+    <ul class="ad">
+        <li><a href="https://rainpass.io/ja/" target="_blank">RAINPASS One Time ID</a></li>
+        <li><a href="https://innoaus.jp/random_id_generator">Random ID Generater</a></li>
+    </ul>
+</div><div class="wrap posts">
+    <h3>Recent Post</h3>
+    <ul>
+        
+        <li><span class="date">2019.02.26</span><br><a href="/posts/20190226/">C&#43;&#43;コンソールアプリケーションに色をつける</a></li>
+        
+        <li><span class="date">2019.02.24</span><br><a href="/posts/20190224/">golangインストール（CentOS7）</a></li>
+        
+        <li><span class="date">2019.02.22</span><br><a href="/posts/20190222/">vuepressを試す（デフォルトテーマ）</a></li>
+        
+        <li><span class="date">2019.02.20</span><br><a href="/posts/20190220/">vuepressを試す（基本設定:メニュー、サイドバー、meta要素設定方法）</a></li>
+        
+        <li><span class="date">2019.02.18</span><br><a href="/posts/20190218/">vuepressを試す（環境準備）</a></li>
+        
+    </ul>
+
+</div>
+
+</div>
+</div><div class="footer">
+        <div class="container">© 2019 Innoaus Inc. All Rights Reserved.</div>
+</div></body>
+</html>
