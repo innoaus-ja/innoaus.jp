@@ -2,9 +2,11 @@
 <html lang="ja">
 <head>
 <meta charset="utf-8" />
+
 <title>
 golangインストール（CentOS7） - innoaus | 株式会社イノス
 </title>
+
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <link rel="icon" type="image/png" href="https://innoaus.jp/images/favicon.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
@@ -79,19 +81,19 @@ golangインストール（CentOS7） - innoaus | 株式会社イノス
 <p>すべてのユーザーが利用する場合はsudo権限が必要です。<br />
 もし、特定のユーザーのみである場合は必要ありません。</p>
 
-<h2 id="goインストール">goインストール</h2>
+<h2 id="goダウンロード">goダウンロード</h2>
 
-<p>現在最新バージョンは<code>1.12</code><br />
-<code>wget</code>コマンドを利用しダウンロードます。</p>
+<p>現在最新バージョンは<code>1.12</code></p>
 
-<pre><code class="language-sh">$ wget https://dl.google.com/go/go1.12.linux-amd64.tar.gz
+<pre><code class="language-sh">cd /usr/local/src
+$ sudo curl -O https://dl.google.com/go/go1.12.linux-amd64.tar.gz
 </code></pre>
 
 <h3 id="チェックサム確認">チェックサム確認</h3>
 
 <p><code>sha256 checksum</code>を利用しチェックサムを確認します。<br />
 ダウンロードしたファイルの<code>checksum</code>を確認し、サイトの<code>SHA256 Checksum</code>と同じか確認します。<br />
-<a href="https://golang.org/dl/の`go1.12.linux-amd64.tar.gz`のSHA256">https://golang.org/dl/の`go1.12.linux-amd64.tar.gz`のSHA256</a> <code>Checksum</code>は<code>750a07fef8579ae4839458701f4df690e0b20b8bcce33b437e4df89c451b6f13</code></p>
+<a href="https://golang.org/dl/">https://golang.org/dl/</a> の<code>go1.12.linux-amd64.tar.gz</code>  <code>SHA256 Checksum</code>は<code>750a07fef8579ae4839458701f4df690e0b20b8bcce33b437e4df89c451b6f13</code></p>
 
 <pre><code class="language-sh">$ sha256checkup go1.12.linux-amd64.tar.gz 
 750a07fef8579ae4839458701f4df690e0b20b8bcce33b437e4df89c451b6f13  go1.12.linux-amd64.tar.gz
@@ -101,7 +103,7 @@ golangインストール（CentOS7） - innoaus | 株式会社イノス
 
 <p>ダウンロードしたパッケージはすでにCentOS7用にビルドされているので解凍してそのまま使用可能です。</p>
 
-<pre><code class="language-sh">$ tar xvfz go1.12.linux-amd64.tar.gz
+<pre><code class="language-sh">$ sudo tar xvfz go1.12.linux-amd64.tar.gz
 </code></pre>
 
 <p>解凍すると<code>go, gocache, tmp</code>フォルダが作成されます。</p>
@@ -110,19 +112,21 @@ golangインストール（CentOS7） - innoaus | 株式会社イノス
 
 <p><code>bin</code>ディレクトリに移動し</p>
 
-<pre><code class="language-sh">$ cd go/bin
+<pre><code class="language-sh">$ cd /usr/local/go/bin
 $ ./go version
 go version go1.12 linux/amd64
 </code></pre>
 
 <p>goの前に<code>./</code>を付けないといけないことに注意。</p>
 
-<h3 id="環境変数設定">環境変数設定</h3>
+<h3 id="環境変数">環境変数</h3>
 
-<p>毎回<code>bin</code>まで指定・移動するのは効率が良くないので<code>~/.bash_profile</code>にPATHを通します。</p>
+<p><code>~/.bash_profile</code>にGOPATHの設定とPATHを通します。</p>
 
 <pre><code class="language-sh">$ vi ~/.bash_profile
-export PATH=$PATH:{解凍ディレクトリ}/go/bin
+export GOPATH=$HOME/go
+export PATH=$PATH:$GOPATH/bin
+export PATH=$PATH:/usr/local/go/bin
 </code></pre>
 
 <p>このままでは変更が反映されないので、ログアウトしなおすか、</p>
