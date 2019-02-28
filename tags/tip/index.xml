@@ -6,10 +6,23 @@
     <description>Recent content in Tip on innoaus | 株式会社イノス</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Tue, 26 Feb 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 28 Feb 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://innoaus.jp/tags/tip/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>C&#43;&#43;　Lambda関数呼び出し</title>
+      <link>https://innoaus.jp/posts/20190228/</link>
+      <pubDate>Thu, 28 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://innoaus.jp/posts/20190228/</guid>
+      <description>C++11で導入されたLambda（ラムダ）関数は普通の関数と違い名前のない関数（anonymous function）が特徴です。
+無名関数と呼ばれることもあります。
+以下はLambda関数呼び出しの簡単なサンプルです。
+C++ コンパイラの実装状況はhttps://en.cppreference.com/w/cpp/compiler_supportで確認することができます。
+function pointerを利用した呼び出しサンプル auto a_lamda_function = [](const std::string&amp;amp; msg) { std::cout &amp;lt;&amp;lt; &amp;quot;function pointerを利用した呼び出しサンプル : &amp;quot; &amp;lt;&amp;lt; msg &amp;lt;&amp;lt; std::endl; } void (* funcPtr)(int) = a_lamda_function; funcPtr(&amp;quot;Hello World!!!&amp;quot;);  C++17から実装されたstd::apply関数を利用した呼び出しサンプル #include &amp;lt;iostream&amp;gt; #include &amp;lt;tuple&amp;gt; #include &amp;lt;utility&amp;gt; int add(int first, int second) { return first + second; } template&amp;lt;typename T&amp;gt; T add_generic(T first, T second) { return first + second; } auto add_lambda = [](auto first, auto second) { return first + second; }; int main() { // OK std::cout &amp;lt;&amp;lt; std::apply(add, std::make_pair(1, 2)) &amp;lt;&amp;lt; &#39;\n&#39;; // Error: can&#39;t deduce the function type // std::cout &amp;lt;&amp;lt; std::apply(add_generic, std::make_pair(2.</description>
+    </item>
     
     <item>
       <title>C&#43;&#43;コンソールアプリケーションに色をつける</title>
