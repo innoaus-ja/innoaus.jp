@@ -73,7 +73,7 @@ vuepressを試す（環境準備） - innoaus | 株式会社イノス
 
 
 
-<div class="article">
+<div id="article" class="article">
     
 
 <p>vuepressは現在バージョン<code>0.x</code>と<code>1.x alpha</code>二つありますが、<code>1.x</code>からはplugin機能が強化され、Blogサイトなどを構築しやすくなっているようです。<br />
@@ -147,6 +147,8 @@ vuepressをローカルインストールしたので、<code>vuepress</code>コ
     <h3>Recent Post</h3>
     <ul>
         
+        <li><span class="date">2019.03.01</span><br><a href="/posts/20190301/">[Linux] 一般ユーザーにパスワードなしでsudoコマンドを使えるようにする</a></li>
+        
         <li><span class="date">2019.02.28</span><br><a href="/posts/20190228/">C&#43;&#43;　Lambda関数呼び出し</a></li>
         
         <li><span class="date">2019.02.26</span><br><a href="/posts/20190226/">C&#43;&#43;コンソールアプリケーションに色をつける</a></li>
@@ -157,13 +159,20 @@ vuepressをローカルインストールしたので、<code>vuepress</code>コ
         
         <li><span class="date">2019.02.20</span><br><a href="/posts/20190220/">vuepressを試す（基本設定:メニュー、サイドバー、meta要素設定方法）</a></li>
         
-        <li><span class="date">2019.02.18</span><br><a href="/posts/20190218/">vuepressを試す（環境準備）</a></li>
-        
     </ul>
 
 </div>
 
-</div>
+</div><script>
+var el = document.getElementById('article').getElementsByTagName('a');
+for(var i = 0; i < el.length; ++i){
+    if (el[i].hostname !== window.location.hostname) {
+        el[i].target = '_blank';
+    }
+}
+</script>
+
+
 </div><div class="footer">
         <div class="container">© 2019 Innoaus Inc. All Rights Reserved.</div>
 </div></body>

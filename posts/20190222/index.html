@@ -73,7 +73,7 @@ vuepressを試す（デフォルトテーマ） - innoaus | 株式会社イノ�
 
 
 
-<div class="article">
+<div id="article" class="article">
     
 
 <p><code>.vuepress</code>フォルダに<code>theme</code>フォルダを作成し、githubの<a href="https://github.com/vuejs/vuepress/tree/master/packages/%40vuepress/theme-default">vuepressデフォルトテーマ</a>を参考に必要なフォルダとファイルのみ作成すると上書きされます。<br />
@@ -131,6 +131,8 @@ stylファイルは<code>.vuepress\theme\styles</code>にあります。</p>
     <h3>Recent Post</h3>
     <ul>
         
+        <li><span class="date">2019.03.01</span><br><a href="/posts/20190301/">[Linux] 一般ユーザーにパスワードなしでsudoコマンドを使えるようにする</a></li>
+        
         <li><span class="date">2019.02.28</span><br><a href="/posts/20190228/">C&#43;&#43;　Lambda関数呼び出し</a></li>
         
         <li><span class="date">2019.02.26</span><br><a href="/posts/20190226/">C&#43;&#43;コンソールアプリケーションに色をつける</a></li>
@@ -141,13 +143,20 @@ stylファイルは<code>.vuepress\theme\styles</code>にあります。</p>
         
         <li><span class="date">2019.02.20</span><br><a href="/posts/20190220/">vuepressを試す（基本設定:メニュー、サイドバー、meta要素設定方法）</a></li>
         
-        <li><span class="date">2019.02.18</span><br><a href="/posts/20190218/">vuepressを試す（環境準備）</a></li>
-        
     </ul>
 
 </div>
 
-</div>
+</div><script>
+var el = document.getElementById('article').getElementsByTagName('a');
+for(var i = 0; i < el.length; ++i){
+    if (el[i].hostname !== window.location.hostname) {
+        el[i].target = '_blank';
+    }
+}
+</script>
+
+
 </div><div class="footer">
         <div class="container">© 2019 Innoaus Inc. All Rights Reserved.</div>
 </div></body>
