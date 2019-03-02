@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+
+<title>
+「CentOS 7」Cisco VPN接続のためのVPNクライアントvpncインストール - innoaus | 株式会社イノス
+</title>
+
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rel="icon" type="image/png" href="https://innoaus.jp/images/favicon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="title" content="「CentOS 7」Cisco VPN接続のためのVPNクライアントvpncインストール - innoaus | 株式会社イノス">
+<meta name="description" content="CentOS 7にCisco VPN接続のためのVPNクライアントvpncのインストールと設定方法。">
+<meta property="og:title" content="「CentOS 7」Cisco VPN接続のためのVPNクライアントvpncインストール">
+
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2019-03-02">
+
+<meta property="og:description" content="CentOS 7にCisco VPN接続のためのVPNクライアントvpncのインストールと設定方法。">
+<meta property="og:url" content="https://innoaus.jp/posts/20190302/">
+<meta property="og:site_name" content="innoaus | 株式会社イノス">
+
+<meta property="og:image" content="https://innoaus.jp/images/network.jpg">
+
+
+<meta property="og:tags" content="CentOS">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
+<link rel="stylesheet" href="https://innoaus.jp/assets/app.min.css">
+<link rel="stylesheet" href="https://innoaus.jp/assets/base.css?1511516232">
+<script src="https://innoaus.jp/assets/prism.js"></script>
+
+ <script async src="https://www.googletagmanager.com/gtag/js?id=UA-134640987-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-134640987-1');
+  </script>
+
+
+</head>
+<body><header class="navbar">
+<div class="container">
+    <div class="navbar-brand">
+        <a href="https://innoaus.jp/" class=""><img src="https://innoaus.jp/images/innoaus_s.png" width="100px;"></a>
+    </div>
+    <div class="navbar-link">
+        <a href="https://innoaus.jp/">Home</a>
+        <a href="https://innoaus.jp/about/">About</a>
+        <a href="https://innoaus.jp/posts/">Blog</a>
+    </div>
+</div>
+</header><div class="container main">
+<div class="content">
+<div>
+    
+    <span class="date">2019.03.02</span>
+    
+</div>
+
+<h1 class="title">「CentOS 7」Cisco VPN接続のためのVPNクライアントvpncインストール 
+    
+    <div style="font-size: .8rem;padding-top:1rem;">
+            
+            <a href="/tags/centos" class="chip">CentOS</a>
+            
+    </div>
+    
+</h1>
+
+
+
+<div id="article" class="article">
+    
+
+<h2 id="epelパッケージインストール">EPELパッケージインストール</h2>
+
+<p>vpncパッケージは基本リポジトリにないためEPEL(Extra Packages for Enterprise Linux)パッケージを追加します。<br />
+EPEL Site : <a href="https://fedoraproject.org/wiki/EPEL">https://fedoraproject.org/wiki/EPEL</a></p>
+
+<pre><code class="language-shell"># yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+Loaded plugins: fastestmirror
+epel-release-latest-7.noarch.rpm                                                                                               |  15 kB  00:00:00
+Examining /var/tmp/yum-root-I01hVd/epel-release-latest-7.noarch.rpm: epel-release-7-11.noarch
+Marking /var/tmp/yum-root-I01hVd/epel-release-latest-7.noarch.rpm to be installed
+Resolving Dependencies
+--&gt; Running transaction check
+---&gt; Package epel-release.noarch 0:7-11 will be installed
+--&gt; Finished Dependency Resolution
+
+Dependencies Resolved
+
+======================================================================================================================================================
+ Package                            Arch                         Version                    Repository                                           Size
+======================================================================================================================================================
+Installing:
+ epel-release                       noarch                       7-11                       /epel-release-latest-7.noarch                        24 k
+
+Transaction Summary
+======================================================================================================================================================
+Install  1 Package
+
+Total size: 24 k
+Installed size: 24 k
+Is this ok [y/d/N]: y
+Downloading packages:
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Installing : epel-release-7-11.noarch                                                                                                           1/1
+  Verifying  : epel-release-7-11.noarch                                                                                                           1/1
+
+Installed:
+  epel-release.noarch 0:7-11
+
+Complete!
+</code></pre>
+
+<h2 id="vpncパッケージ検索">vpncパッケージ検索</h2>
+
+<pre><code class="language-shell"># yum search vpnc
+Loaded plugins: fastestmirror
+Loading mirror speeds from cached hostfile
+ * base: mirror.kakao.com
+ * epel: mirror.premi.st
+ * extras: mirror.kakao.com
+ * updates: mirror.kakao.com
+====================================================================== N/S matched: vpnc =======================================================================
+NetworkManager-vpnc.x86_64 : NetworkManager VPN plugin for vpnc
+NetworkManager-vpnc-gnome.x86_64 : NetworkManager VPN plugin for vpnc - GNOME files
+kde-plasma-networkmanagement-vpnc.x86_64 : Vpnc support for kde-plasma-networkmanagement-extras
+vpnc-script.noarch : Routing setup script for vpnc and openconnect
+vpnc.x86_64 : IPSec VPN client compatible with Cisco equipment
+vpnc-consoleuser.x86_64 : Allows console user to run the VPN client directly
+
+  Name and summary matches only, use &quot;search all&quot; for everything.
+</code></pre>
+
+<h2 id="vpncパッケージインストール">vpncパッケージインストール</h2>
+
+<pre><code class="language-shell"># yum install -y vpnc
+...
+Resolving Dependencies
+--&gt; Running transaction check
+---&gt; Package vpnc.x86_64 0:0.5.3-22.svn457.el7 will be installed
+--&gt; Processing Dependency: libgnutls.so.28(GNUTLS_1_4)(64bit) for package: vpnc-0.5.3-22.svn457.el7.x86_64
+--&gt; Processing Dependency: vpnc-script for package: vpnc-0.5.3-22.svn457.el7.x86_64
+--&gt; Processing Dependency: libgnutls.so.28()(64bit) for package: vpnc-0.5.3-22.svn457.el7.x86_64
+--&gt; Running transaction check
+---&gt; Package gnutls.x86_64 0:3.3.29-8.el7 will be installed
+--&gt; Processing Dependency: trousers &gt;= 0.3.11.2 for package: gnutls-3.3.29-8.el7.x86_64
+--&gt; Processing Dependency: libnettle.so.4()(64bit) for package: gnutls-3.3.29-8.el7.x86_64
+--&gt; Processing Dependency: libhogweed.so.2()(64bit) for package: gnutls-3.3.29-8.el7.x86_64
+---&gt; Package vpnc-script.noarch 0:0.5.3-22.svn457.el7 will be installed
+--&gt; Running transaction check
+---&gt; Package nettle.x86_64 0:2.7.1-8.el7 will be installed
+---&gt; Package trousers.x86_64 0:0.3.14-2.el7 will be installed
+--&gt; Finished Dependency Resolution
+
+Dependencies Resolved
+
+================================================================================================================================================================
+ Package                                Arch                              Version                                         Repository                       Size
+================================================================================================================================================================
+Installing:
+ vpnc                                   x86_64                            0.5.3-22.svn457.el7                             epel                             85 k
+Installing for dependencies:
+ gnutls                                 x86_64                            3.3.29-8.el7                                    base                            680 k
+ nettle                                 x86_64                            2.7.1-8.el7                                     base                            327 k
+ trousers                               x86_64                            0.3.14-2.el7                                    base                            289 k
+ vpnc-script                            noarch                            0.5.3-22.svn457.el7                             epel                             14 k
+
+Transaction Summary
+================================================================================================================================================================
+Install  1 Package (+4 Dependent packages)
+
+Total download size: 1.4 M
+Installed size: 3.7 M
+Downloading packages:
+(1/5): nettle-2.7.1-8.el7.x86_64.rpm                                                                                                     | 327 kB  00:00:00     
+(2/5): trousers-0.3.14-2.el7.x86_64.rpm                                                                                                  | 289 kB  00:00:00     
+(3/5): gnutls-3.3.29-8.el7.x86_64.rpm                                                                                                    | 680 kB  00:00:00     
+warning: /var/cache/yum/x86_64/7/epel/packages/vpnc-0.5.3-22.svn457.el7.x86_64.rpm: Header V3 RSA/SHA256 Signature, key ID 352c64e5: NOKEY
+Public key for vpnc-0.5.3-22.svn457.el7.x86_64.rpm is not installed
+(4/5): vpnc-0.5.3-22.svn457.el7.x86_64.rpm                                                                                               |  85 kB  00:00:00     
+(5/5): vpnc-script-0.5.3-22.svn457.el7.noarch.rpm                                                                                        |  14 kB  00:00:00     
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+Total                                                                                                                           2.4 MB/s | 1.4 MB  00:00:00     
+Retrieving key from file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7
+Importing GPG key 0x352C64E5:
+ Userid     : &quot;Fedora EPEL (7) &lt;epel@fedoraproject.org&gt;&quot;
+ Fingerprint: 91e9 7d7c 4a5e 96f1 7f3e 888f 6a2f aea2 352c 64e5
+ Package    : epel-release-7-11.noarch (installed)
+ From       : /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Installing : trousers-0.3.14-2.el7.x86_64                                                                                                                 1/5 
+  Installing : nettle-2.7.1-8.el7.x86_64                                                                                                                    2/5 
+  Installing : gnutls-3.3.29-8.el7.x86_64                                                                                                                   3/5 
+  Installing : vpnc-script-0.5.3-22.svn457.el7.noarch                                                                                                       4/5 
+  Installing : vpnc-0.5.3-22.svn457.el7.x86_64                                                                                                              5/5 
+  Verifying  : gnutls-3.3.29-8.el7.x86_64                                                                                                                   1/5 
+  Verifying  : vpnc-script-0.5.3-22.svn457.el7.noarch                                                                                                       2/5 
+  Verifying  : nettle-2.7.1-8.el7.x86_64                                                                                                                    3/5 
+  Verifying  : trousers-0.3.14-2.el7.x86_64                                                                                                                 4/5 
+  Verifying  : vpnc-0.5.3-22.svn457.el7.x86_64                                                                                                              5/5 
+
+Installed:
+  vpnc.x86_64 0:0.5.3-22.svn457.el7                                                                                                                             
+
+Dependency Installed:
+  gnutls.x86_64 0:3.3.29-8.el7        nettle.x86_64 0:2.7.1-8.el7        trousers.x86_64 0:0.3.14-2.el7        vpnc-script.noarch 0:0.5.3-22.svn457.el7       
+
+Complete!
+
+
+</code></pre>
+
+<h2 id="インストール確認">インストール確認</h2>
+
+<pre><code class="language-shell"># vpnc --version
+vpnc version 0.5.3
+Copyright (C) 2002-2006 Geoffrey Keating, Maurice Massar, others
+vpnc comes with NO WARRANTY, to the extent permitted by law.
+You may redistribute copies of vpnc under the terms of the GNU General
+Public License.  For more information about these matters, see the files
+named COPYING.
+Built with certificate support.
+
+Supported DH-Groups: nopfs dh1 dh2 dh5
+Supported Hash-Methods: md5 sha1
+Supported Encryptions: null des 3des aes128 aes192 aes256
+Supported Auth-Methods: psk psk+xauth hybrid(rsa)
+
+</code></pre>
+
+<h2 id="vpnクライアント設定">VPNクライアント設定</h2>
+
+<p>基本設定ファイルをコピーし、個別設定ファイルを作成します。</p>
+
+<pre><code class="language-shell"># cp /etc/vpnc/default.conf /etc/vpnc/myvpnc.conf
+# vi /etc/vpnc/myvpnc.conf
+IPSec gateway my.vpn.gateway  # vpn サーバーIPまたはhostname
+IPSec ID my.ipsec.id          # vpn group id
+IPSec secret mysecret         # vpn group password
+# your username goes here:
+Xauth username userid               # user id
+Xauth password passwd               # user password
+
+</code></pre>
+
+<h2 id="vpnクライアント起動">VPNクライアント起動</h2>
+
+<pre><code class="language-shell"># vpnc /etc/vpnc/myvpnc.conf
+VPNC started in background (pid: 3581)...
+</code></pre>
+
+<h2 id="vpn切断">VPN切断</h2>
+
+<pre><code class="language-shell"># vpnc-disconnect
+</code></pre>
+
+</div>
+
+
+</div><div class="sidebar">
+
+<div class="wrap">
+    <h3>Product & Service</h3>
+    <ul class="ad">
+        <li><a href="https://rainpass.io/ja/" target="_blank">RAINPASS One Time ID</a></li>
+        <li><a href="https://innoaus.jp/random_id_generator">Random ID Generater</a></li>
+    </ul>
+</div><div class="wrap posts">
+    <h3>Recent Post</h3>
+    <ul>
+        
+        <li><span class="date">2019.03.02</span><br><a href="/posts/20190302/">「CentOS 7」Cisco VPN接続のためのVPNクライアントvpncインストール</a></li>
+        
+        <li><span class="date">2019.03.01</span><br><a href="/posts/20190301/">[Linux] 一般ユーザーにパスワードなしでsudoコマンドを使えるようにする</a></li>
+        
+        <li><span class="date">2019.02.28</span><br><a href="/posts/20190228/">C&#43;&#43;　Lambda関数呼び出し</a></li>
+        
+        <li><span class="date">2019.02.26</span><br><a href="/posts/20190226/">C&#43;&#43;コンソールアプリケーションに色をつける</a></li>
+        
+        <li><span class="date">2019.02.24</span><br><a href="/posts/20190224/">golangインストール（CentOS7）</a></li>
+        
+        <li><span class="date">2019.02.22</span><br><a href="/posts/20190222/">vuepressを試す（デフォルトテーマ）</a></li>
+        
+    </ul>
+
+</div>
+
+</div><script>
+window.onload = function () {
+    var article = document.getElementById('article');
+    
+    var el = article.getElementsByTagName('a');
+    for(var i = 0; i < el.length; ++i){
+        if (el[i].hostname !== window.location.hostname) {
+            el[i].target = '_blank';
+        }
+    }
+
+    var headings = article.querySelectorAll('h1, h2, h3, h4, h5, h6');
+    headings.forEach(function(heading){
+      if(heading.id){
+        var alink = '<a href="#'+heading.id+'" aria-hidden="true" class="header-anchor">#</a>';
+        heading.innerHTML = heading.innerHTML + alink;
+      }
+    });
+}
+</script>
+
+
+</div><div class="footer">
+        <div class="container">© 2019 Innoaus Inc. All Rights Reserved.</div>
+</div></body>
+</html>

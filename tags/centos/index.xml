@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Centos on innoaus | 株式会社イノス</title>
+    <link>https://innoaus.jp/tags/centos/</link>
+    <description>Recent content in Centos on innoaus | 株式会社イノス</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Sat, 02 Mar 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://innoaus.jp/tags/centos/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>「CentOS 7」Cisco VPN接続のためのVPNクライアントvpncインストール</title>
+      <link>https://innoaus.jp/posts/20190302/</link>
+      <pubDate>Sat, 02 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://innoaus.jp/posts/20190302/</guid>
+      <description>EPELパッケージインストール vpncパッケージは基本リポジトリにないためEPEL(Extra Packages for Enterprise Linux)パッケージを追加します。
+EPEL Site : https://fedoraproject.org/wiki/EPEL
+# yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm Loaded plugins: fastestmirror epel-release-latest-7.noarch.rpm | 15 kB 00:00:00 Examining /var/tmp/yum-root-I01hVd/epel-release-latest-7.noarch.rpm: epel-release-7-11.noarch Marking /var/tmp/yum-root-I01hVd/epel-release-latest-7.noarch.rpm to be installed Resolving Dependencies --&amp;gt; Running transaction check ---&amp;gt; Package epel-release.noarch 0:7-11 will be installed --&amp;gt; Finished Dependency Resolution Dependencies Resolved ====================================================================================================================================================== Package Arch Version Repository Size ====================================================================================================================================================== Installing: epel-release noarch 7-11 /epel-release-latest-7.noarch 24 k Transaction Summary ====================================================================================================================================================== Install 1 Package Total size: 24 k Installed size: 24 k Is this ok [y/d/N]: y Downloading packages: Running transaction check Running transaction test Transaction test succeeded Running transaction Installing : epel-release-7-11.</description>
+    </item>
+    
+  </channel>
+</rss>

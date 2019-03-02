@@ -28,7 +28,7 @@ vuepressを試す（基本設定:メニュー、サイドバー、meta要素設�
 
 <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
 <link rel="stylesheet" href="https://innoaus.jp/assets/app.min.css">
-<link rel="stylesheet" href="https://innoaus.jp/assets/base.css?AdB0dYb">
+<link rel="stylesheet" href="https://innoaus.jp/assets/base.css?1511516232">
 <script src="https://innoaus.jp/assets/prism.js"></script>
 
  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-134640987-1"></script>
@@ -154,6 +154,8 @@ meta:
     <h3>Recent Post</h3>
     <ul>
         
+        <li><span class="date">2019.03.02</span><br><a href="/posts/20190302/">「CentOS 7」Cisco VPN接続のためのVPNクライアントvpncインストール</a></li>
+        
         <li><span class="date">2019.03.01</span><br><a href="/posts/20190301/">[Linux] 一般ユーザーにパスワードなしでsudoコマンドを使えるようにする</a></li>
         
         <li><span class="date">2019.02.28</span><br><a href="/posts/20190228/">C&#43;&#43;　Lambda関数呼び出し</a></li>
@@ -164,18 +166,28 @@ meta:
         
         <li><span class="date">2019.02.22</span><br><a href="/posts/20190222/">vuepressを試す（デフォルトテーマ）</a></li>
         
-        <li><span class="date">2019.02.20</span><br><a href="/posts/20190220/">vuepressを試す（基本設定:メニュー、サイドバー、meta要素設定方法）</a></li>
-        
     </ul>
 
 </div>
 
 </div><script>
-var el = document.getElementById('article').getElementsByTagName('a');
-for(var i = 0; i < el.length; ++i){
-    if (el[i].hostname !== window.location.hostname) {
-        el[i].target = '_blank';
+window.onload = function () {
+    var article = document.getElementById('article');
+    
+    var el = article.getElementsByTagName('a');
+    for(var i = 0; i < el.length; ++i){
+        if (el[i].hostname !== window.location.hostname) {
+            el[i].target = '_blank';
+        }
     }
+
+    var headings = article.querySelectorAll('h1, h2, h3, h4, h5, h6');
+    headings.forEach(function(heading){
+      if(heading.id){
+        var alink = '<a href="#'+heading.id+'" aria-hidden="true" class="header-anchor">#</a>';
+        heading.innerHTML = heading.innerHTML + alink;
+      }
+    });
 }
 </script>
 
