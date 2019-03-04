@@ -6,10 +6,35 @@
     <description>Recent content in Centos on innoaus | 株式会社イノス</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sun, 03 Mar 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 04 Mar 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://innoaus.jp/tags/centos/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>CentOS 7にPostgresql Service設定</title>
+      <link>https://innoaus.jp/posts/20190304_2/</link>
+      <pubDate>Mon, 04 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://innoaus.jp/posts/20190304_2/</guid>
+      <description>ソースコードからビルドしたか、コピーしたデータベースをサービスとして登録するための方法を整理しました。
+サービススクリプト作成 $ vi postgresql.service # Systemd service definition for postgresql-bdr94 # # It&#39;s not recommended to modify this file in-place, because it will be # overwritten during package upgrades. If you want to customize, the # best way is to create a file &amp;quot;/etc/systemd/system/postgresql-9.4.service&amp;quot;, # containing # .include /lib/systemd/system/postgresql-9.4.service # ...make your changes here... # For more info about custom unit files, see # http://fedoraproject.org/wiki/Systemd#How_do_I_customize_a_unit_file.2F_add_a_custom_unit_file.3F # Note: changing PGDATA will typically require adjusting SELinux # configuration as well.</description>
+    </item>
+    
+    <item>
+      <title>CentOS7にPostgreSQL Multi-MasterデータベースPostgresql-BDR 9.4インストール</title>
+      <link>https://innoaus.jp/posts/20190304_1/</link>
+      <pubDate>Mon, 04 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://innoaus.jp/posts/20190304_1/</guid>
+      <description>以下は2ndQuadrant社のPostgreSQL Multi-Masterプラグインbdr(Bidirectional Replication Plugin)のインストール方法です。
+Postgres-BDRソースコードからビルドしインストール ソースコードからビルドするためにはgccコンパイラが必要です。
+今回はgcc 7を使用します。
+gcc 7インストール関連記事
+準備 $ sudo yum -y install centos-release-scl $ sudo yum -y install devtoolset-7 $ sudo yum -y install readline-devel bison-devel bison flex-devel flex zlib-devel $ sudo yum -y install git  Postgres-BDR-9.4インストール 最新ソースを$HOME/2ndquadrant_bdrフォルダにダウンロードし、ビルドします。
+$ curl -s &amp;quot;https://raw.githubusercontent.com/2ndQuadrant/bdr/bdr-plugin/REL1_0_STABLE/scripts/bdr_quickstart.sh&amp;quot; | bash  インストール確認 問題なくビルドできたら$HOME/2ndquadrant_bdrフォルダに
+drwxrwxr-x. 6 user user 56 Mar 3 11:30 bdr drwxrwxr-x. 7 user user 4096 Mar 3 11:28 bdr-pg-src drwxrwxr-x.</description>
+    </item>
     
     <item>
       <title>CentOS(6/7)にgcc-7および関連開発ツールインストール</title>

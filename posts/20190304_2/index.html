@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+
+<title>
+CentOS 7にPostgresql Service設定 - innoaus | 株式会社イノス
+</title>
+
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rel="icon" type="image/png" href="https://innoaus.jp/images/favicon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="title" content="CentOS 7にPostgresql Service設定 - innoaus | 株式会社イノス">
+<meta name="description" content="ソースコードからビルドしたか、コピーしたデータベースをサービスとして登録するための方法を整理しました。">
+<meta property="og:title" content="CentOS 7にPostgresql Service設定">
+
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2019-03-04">
+
+<meta property="og:description" content="ソースコードからビルドしたか、コピーしたデータベースをサービスとして登録するための方法を整理しました。">
+<meta property="og:url" content="https://innoaus.jp/posts/20190304_2/">
+<meta property="og:site_name" content="innoaus | 株式会社イノス">
+
+<meta property="og:image" content="https://innoaus.jp/images/ai-codes-coding.jpg">
+
+
+<meta property="og:tags" content="CentOS">
+
+<meta property="og:tags" content="Postgresql">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
+<link rel="stylesheet" href="https://innoaus.jp/assets/app.min.css">
+<link rel="stylesheet" href="https://innoaus.jp/assets/base.css?1511516232">
+<script src="https://innoaus.jp/assets/prism.js"></script>
+
+ <script async src="https://www.googletagmanager.com/gtag/js?id=UA-134640987-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-134640987-1');
+  </script>
+
+
+</head>
+<body><header class="navbar">
+<div class="container">
+    <div class="navbar-brand">
+        <a href="https://innoaus.jp/" class=""><img src="https://innoaus.jp/images/innoaus_s.png" width="100px;"></a>
+    </div>
+    <div class="navbar-link">
+        <a href="https://innoaus.jp/">Home</a>
+        <a href="https://innoaus.jp/about/">About</a>
+        <a href="https://innoaus.jp/posts/">Blog</a>
+    </div>
+</div>
+</header><div class="container main">
+<div class="content">
+<div>
+    
+    <span class="date">2019.03.04</span>
+    
+</div>
+
+<h1 class="title">CentOS 7にPostgresql Service設定 
+    
+    <div style="font-size: .8rem;padding-top:1rem;">
+            
+            <a href="/tags/centos" class="chip">CentOS</a>
+            
+            <a href="/tags/postgresql" class="chip">Postgresql</a>
+            
+    </div>
+    
+</h1>
+
+
+
+<div id="article" class="article">
+    
+
+<p>ソースコードからビルドしたか、コピーしたデータベースをサービスとして登録するための方法を整理しました。</p>
+
+<h2 id="サービススクリプト作成">サービススクリプト作成</h2>
+
+<pre><code class="language-shell">$ vi postgresql.service
+
+# Systemd service definition for postgresql-bdr94
+# 
+# It's not recommended to modify this file in-place, because it will be
+# overwritten during package upgrades.  If you want to customize, the
+# best way is to create a file &quot;/etc/systemd/system/postgresql-9.4.service&quot;,
+# containing
+#   .include /lib/systemd/system/postgresql-9.4.service
+#   ...make your changes here...
+# For more info about custom unit files, see
+# http://fedoraproject.org/wiki/Systemd#How_do_I_customize_a_unit_file.2F_add_a_custom_unit_file.3F
+
+# Note: changing PGDATA will typically require adjusting SELinux
+# configuration as well.
+
+# Note: do not use a PGDATA pathname containing spaces, or you will
+# break postgresql-setup.
+[Unit]
+Description=PostgreSQL 9.4 database server with BDR
+After=syslog.target
+After=network.target
+
+[Service]
+Type=forking
+
+User={サービス所有者}
+Group={サービス グループ}
+
+# Note: avoid inserting whitespace in these Environment= lines, or you may
+# break postgresql-setup.
+
+# Location of database directory
+Environment=PGDATA={データベースデータフォルダ}
+
+# Where to send early-startup messages from the server (before the logging
+# options of postgresql.conf take effect)
+# This is normally controlled by the global default set by systemd
+# StandardOutput=syslog
+
+# Disable OOM kill on the postmaster
+OOMScoreAdjust=-1000
+
+ExecStart={データベースコマンドフォルダ}/pg_ctl start -D &quot;${PGDATA}&quot; -s -w -t 300
+ExecStop={データベースコマンドフォルダ}/pg_ctl stop -D &quot;${PGDATA}&quot; -s -m fast
+ExecReload={データベースコマンドフォルダ}/pg_ctl reload -D &quot;${PGDATA}&quot; -s
+
+# Give a reasonable amount of time for the server to start up/shut down
+TimeoutSec=300
+
+[Install]
+WantedBy=multi-user.target
+</code></pre>
+
+<p>上記<code>postgresql.service</code>スクリプトの{サービス所有者}, {サービスグループ}, {データベースデータフォルダ}, {データベースコマンドフォルダ}に自分の環境値に修正します。</p>
+
+<ol>
+<li>{サービス所有者}はサービス起動時のプロセス所有者を意味します。</li>
+<li>{サービスグループ}は所有者が属したグループを意味します。一般的に所有者と同じにします。</li>
+<li>{データベースデータフォルダ}は<code>initdb</code>を理想し初期化したデータベースデータフォルダを意味します。</li>
+<li>{データベースコマンドフォルダ}は<code>initdb</code>、<code>createdb</code>などの関連コマンド場所を意味します。</li>
+</ol>
+
+<p>次はサービス所有者アカウントがuser、グループがuserとした場合、データベースコマンドは<code>/home/user/dbroot/bin</code>、<br />
+データフォルダは<code>/home/user/dbroot/data</code>とした場合のスクリプトです。</p>
+
+<pre><code class="language-shell">
+# Systemd service definition for postgresql-bdr94
+# 
+# It's not recommended to modify this file in-place, because it will be
+# overwritten during package upgrades.  If you want to customize, the
+# best way is to create a file &quot;/etc/systemd/system/postgresql-9.4.service&quot;,
+# containing
+#   .include /lib/systemd/system/postgresql-9.4.service
+#   ...make your changes here...
+# For more info about custom unit files, see
+# http://fedoraproject.org/wiki/Systemd#How_do_I_customize_a_unit_file.2F_add_a_custom_unit_file.3F
+
+# Note: changing PGDATA will typically require adjusting SELinux
+# configuration as well.
+
+# Note: do not use a PGDATA pathname containing spaces, or you will
+# break postgresql-setup.
+[Unit]
+Description=PostgreSQL 9.4 database server with BDR
+After=syslog.target
+After=network.target
+
+[Service]
+Type=forking
+
+User=user
+Group=user
+
+# Note: avoid inserting whitespace in these Environment= lines, or you may
+# break postgresql-setup.
+
+# Location of database directory
+Environment=PGDATA=/home/user/dbroot/data
+
+# Where to send early-startup messages from the server (before the logging
+# options of postgresql.conf take effect)
+# This is normally controlled by the global default set by systemd
+# StandardOutput=syslog
+
+# Disable OOM kill on the postmaster
+OOMScoreAdjust=-1000
+
+ExecStart=/home/user/dbroot/bin/pg_ctl start -D &quot;${PGDATA}&quot; -s -w -t 300
+ExecStop=/home/user/dbroot/bin/pg_ctl stop -D &quot;${PGDATA}&quot; -s -m fast
+ExecReload=/home/user/dbroot/bin/pg_ctl reload -D &quot;${PGDATA}&quot; -s
+
+# Give a reasonable amount of time for the server to start up/shut down
+TimeoutSec=300
+
+[Install]
+WantedBy=multi-user.target
+
+</code></pre>
+
+<h2 id="サービス設定">サービス設定</h2>
+
+<p>CentOS 7でサービススクリプト場所は<code>/usr/lib/systemd/system</code>です。<br />
+上記スクリプトファイル名が<code>postgresql.service</code>である場合、このファイルを<code>/usr/lib/systemd/system</code>に作成し、コピーまたは<code>symbolic link</code>を作成します。</p>
+
+<p>次は<code>symbolic link</code>を作成する方法です。</p>
+
+<pre><code class="language-shell">$ sudo ln -s /home/user/dbroot/postgresql.service /usr/lib/systemd/system/postgresql.service
+</code></pre>
+
+<h3 id="自動起動有効化">自動起動有効化</h3>
+
+<pre><code class="language-shell">$ sudo systemctl enable postgresql.service
+Created symlink from /etc/systemd/system/multi-user.target.wants/postgresql.service to /home/user/dbroot/postgresql.service.
+Created symlink from /etc/systemd/system/postgresql.service to /home/leo/dbroot/postgresql.service.
+</code></pre>
+
+<h3 id="起動">起動</h3>
+
+<pre><code class="language-shell">$ sudo systemctl start postgresql.service
+$ ps -ef | grep postgres
+user      11661     1  0 13:02 ?        00:00:00 /home/user/dbroot/bin/postgres -D /home/user/dbroot/data
+user      11663 11661  0 13:02 ?        00:00:00 postgres: checkpointer process   
+user      11664 11661  0 13:02 ?        00:00:00 postgres: writer process   
+user      11665 11661  0 13:02 ?        00:00:00 postgres: wal writer process   
+user      11666 11661  0 13:02 ?        00:00:00 postgres: autovacuum launcher process   
+user      11667 11661  0 13:02 ?        00:00:00 postgres: stats collector process   
+user      11671  1225  0 13:02 pts/0    00:00:00 grep --color=auto postgres
+</code></pre>
+
+<h3 id="停止">停止</h3>
+
+<pre><code class="language-shell">$ sudo systemctl stop postgresql.service
+</code></pre>
+
+<h3 id="確認">確認</h3>
+
+<pre><code class="language-shell">$ psql -U postgres
+psql (9.4.13)
+Type &quot;help&quot; for help.
+
+postgres=# 
+</code></pre>
+
+</div>
+
+
+</div><div class="sidebar">
+
+<div class="wrap">
+    <h3>Product & Service</h3>
+    <ul class="ad">
+        <li><a href="https://rainpass.io/ja/" target="_blank">RAINPASS One Time ID</a></li>
+        <li><a href="https://innoaus.jp/random_id_generator">Random ID Generater</a></li>
+    </ul>
+</div><div class="wrap posts">
+    <h3>Recent Post</h3>
+    <ul>
+        
+        <li><span class="date">2019.03.04</span><br><a href="/posts/20190304_2/">CentOS 7にPostgresql Service設定</a></li>
+        
+        <li><span class="date">2019.03.04</span><br><a href="/posts/20190304_1/">CentOS7にPostgreSQL Multi-MasterデータベースPostgresql-BDR 9.4インストール</a></li>
+        
+        <li><span class="date">2019.03.03</span><br><a href="/posts/20190303/">CentOS(6/7)にgcc-7および関連開発ツールインストール</a></li>
+        
+        <li><span class="date">2019.03.02</span><br><a href="/posts/20190302/">「CentOS 7」Cisco VPN接続のためのVPNクライアントvpncインストール</a></li>
+        
+        <li><span class="date">2019.03.01</span><br><a href="/posts/20190301/">[Linux] 一般ユーザーにパスワードなしでsudoコマンドを使えるようにする</a></li>
+        
+        <li><span class="date">2019.02.28</span><br><a href="/posts/20190228/">C&#43;&#43;　Lambda関数呼び出し</a></li>
+        
+    </ul>
+
+</div>
+
+</div><script>
+window.onload = function () {
+    var article = document.getElementById('article');
+    
+    var el = article.getElementsByTagName('a');
+    for(var i = 0; i < el.length; ++i){
+        if (el[i].hostname !== window.location.hostname) {
+            el[i].target = '_blank';
+        }
+    }
+
+    var headings = article.querySelectorAll('h1, h2, h3, h4, h5, h6');
+    headings.forEach(function(heading){
+      if(heading.id){
+        var alink = '<a href="#'+heading.id+'" aria-hidden="true" class="header-anchor">#</a>';
+        heading.innerHTML = heading.innerHTML + alink;
+      }
+    });
+}
+</script>
+
+
+</div><div class="footer">
+        <div class="container">© 2019 Innoaus Inc. All Rights Reserved.</div>
+</div></body>
+</html>

@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+
+<title>
+CentOS7にPostgreSQL Multi-MasterデータベースPostgresql-BDR 9.4インストール - innoaus | 株式会社イノス
+</title>
+
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rel="icon" type="image/png" href="https://innoaus.jp/images/favicon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="title" content="CentOS7にPostgreSQL Multi-MasterデータベースPostgresql-BDR 9.4インストール - innoaus | 株式会社イノス">
+<meta name="description" content="2ndQuadrant社のPostgreSQL Multi-Masterプラグインbdr(Bidirectional Replication Plugin)のインストール方法です。">
+<meta property="og:title" content="CentOS7にPostgreSQL Multi-MasterデータベースPostgresql-BDR 9.4インストール">
+
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2019-03-04">
+
+<meta property="og:description" content="2ndQuadrant社のPostgreSQL Multi-Masterプラグインbdr(Bidirectional Replication Plugin)のインストール方法です。">
+<meta property="og:url" content="https://innoaus.jp/posts/20190304_1/">
+<meta property="og:site_name" content="innoaus | 株式会社イノス">
+
+<meta property="og:image" content="https://innoaus.jp/images/bandwidth-computer.jpg">
+
+
+<meta property="og:tags" content="CentOS">
+
+<meta property="og:tags" content="Postgresql">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
+<link rel="stylesheet" href="https://innoaus.jp/assets/app.min.css">
+<link rel="stylesheet" href="https://innoaus.jp/assets/base.css?1511516232">
+<script src="https://innoaus.jp/assets/prism.js"></script>
+
+ <script async src="https://www.googletagmanager.com/gtag/js?id=UA-134640987-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-134640987-1');
+  </script>
+
+
+</head>
+<body><header class="navbar">
+<div class="container">
+    <div class="navbar-brand">
+        <a href="https://innoaus.jp/" class=""><img src="https://innoaus.jp/images/innoaus_s.png" width="100px;"></a>
+    </div>
+    <div class="navbar-link">
+        <a href="https://innoaus.jp/">Home</a>
+        <a href="https://innoaus.jp/about/">About</a>
+        <a href="https://innoaus.jp/posts/">Blog</a>
+    </div>
+</div>
+</header><div class="container main">
+<div class="content">
+<div>
+    
+    <span class="date">2019.03.04</span>
+    
+</div>
+
+<h1 class="title">CentOS7にPostgreSQL Multi-MasterデータベースPostgresql-BDR 9.4インストール 
+    
+    <div style="font-size: .8rem;padding-top:1rem;">
+            
+            <a href="/tags/centos" class="chip">CentOS</a>
+            
+            <a href="/tags/postgresql" class="chip">Postgresql</a>
+            
+    </div>
+    
+</h1>
+
+
+
+<div id="article" class="article">
+    
+
+<p>以下は2ndQuadrant社のPostgreSQL Multi-Masterプラグインbdr(Bidirectional Replication Plugin)のインストール方法です。</p>
+
+<h2 id="postgres-bdrソースコードからビルドしインストール">Postgres-BDRソースコードからビルドしインストール</h2>
+
+<p>ソースコードからビルドするためにはgccコンパイラが必要です。<br />
+今回はgcc 7を使用します。<br />
+<a href="/posts/20190303/">gcc 7インストール関連記事</a></p>
+
+<h3 id="準備">準備</h3>
+
+<pre><code class="language-shell">$ sudo yum -y install centos-release-scl
+$ sudo yum -y install devtoolset-7
+$ sudo yum -y install readline-devel bison-devel bison flex-devel flex zlib-devel
+$ sudo yum -y install git
+</code></pre>
+
+<h3 id="postgres-bdr-9-4インストール">Postgres-BDR-9.4インストール</h3>
+
+<p>最新ソースを<code>$HOME/2ndquadrant_bdr</code>フォルダにダウンロードし、ビルドします。</p>
+
+<pre><code class="language-shell">$ curl -s &quot;https://raw.githubusercontent.com/2ndQuadrant/bdr/bdr-plugin/REL1_0_STABLE/scripts/bdr_quickstart.sh&quot; | bash
+</code></pre>
+
+<h3 id="インストール確認">インストール確認</h3>
+
+<p>問題なくビルドできたら<code>$HOME/2ndquadrant_bdr</code>フォルダに</p>
+
+<pre><code class="language-shell">drwxrwxr-x.  6 user user    56 Mar  3 11:30 bdr
+drwxrwxr-x.  7 user user  4096 Mar  3 11:28 bdr-pg-src
+drwxrwxr-x. 11 user user  4096 Mar  3 11:32 bdr-plugin-src
+-rw-rw-r--.  1 user user 16110 Mar  3 11:32 install.log
+</code></pre>
+
+<p>のように<code>bdr</code>, <code>bdr-pg-src</code>, <code>bdr-plugin-src</code>フォルダが作成されます。<br />
+<code>bdr</code>フォルダはコンパイルされた内容で、このフォルダをコピーし利用します。<br />
+<code>bdr-pg-src</code>はMulti-master環境構成ができるpostgresql-9.4のコードが保存されているフォルダ、<br />
+<code>bdr-plugin-src</code>は関連pluginソースが保存されたフォルダです。</p>
+
+<p>もし、コンパイルエラーが発生すると<code>bdr</code>フォルダが作成されません。</p>
+
+<h3 id="実行環境構成">実行環境構成</h3>
+
+<p><code>$HOME/2ndquadrant_bdr/bdr</code>フォルダをコピーします。<br />
+今回は<code>$HOME/dbroot</code>フォルダにコピーします。</p>
+
+<pre><code class="language-shell">$ cp -R $HOME/2ndquadrant_bdr/bdr $HOME/dbroot
+</code></pre>
+
+<p>環境変数にデータベースコマンド実行のためのパスを設定します。</p>
+
+<pre><code class="language-shell">$ echo &quot;export PATH=$PATH:$HOME/dbroot/bin&quot; | tee -a ~/.bash_profile
+$ echo &quot;export DBROOT=$HOME/dbroot&quot; | tee -a ~/.bash_profile
+</code></pre>
+
+<p>設定したパスをリロードします。</p>
+
+<pre><code class="language-shell">$ . $HOME/.bash_profile
+</code></pre>
+
+<p>バージョンを確認します。</p>
+
+<pre><code class="language-shell">$ psql --version
+psql (PostgreSQL) 9.4.13
+</code></pre>
+
+<h4 id="データベース初期化">データベース初期化</h4>
+
+<p><code>$HOME/dbroot/data</code>フォルダに新しいデータベースを初期化します。</p>
+
+<pre><code class="language-shell">$ initdb -D $DBROOT/data -A trust -U postgres
+</code></pre>
+
+<h4 id="起動">起動</h4>
+
+<pre><code class="language-shell">$ pg_ctl -D /home/user/dbroot/data -l logfile start
+server starting
+</code></pre>
+
+<h4 id="停止">停止</h4>
+
+<pre><code class="language-shell">$ pg_ctl -D /home/user/dbroot/data stop
+waiting for server to shut down.... done
+server stopped
+</code></pre>
+
+<h4 id="動作確認">動作確認</h4>
+
+<p>プロセスに加わっているのか<code>ps</code>コマンドから確認します。</p>
+
+<pre><code class="language-shell">$ ps -ef | grep postgres
+user        829     1  0 11:58 pts/0    00:00:00 /home/user/dbroot/bin/postgres -D /home/leo/dbroot/data
+user        831   829  0 11:58 ?        00:00:00 postgres: checkpointer process   
+user        832   829  0 11:58 ?        00:00:00 postgres: writer process   
+user        833   829  0 11:58 ?        00:00:00 postgres: wal writer process   
+user        834   829  0 11:58 ?        00:00:00 postgres: autovacuum launcher process   
+user        835   829  0 11:58 ?        00:00:00 postgres: stats collector process   
+user        838  1225  0 11:59 pts/0    00:00:00 grep --color=auto postgres
+</code></pre>
+
+<h4 id="接続確認">接続確認</h4>
+
+<pre><code class="language-shell">$ psql -U postgres
+psql (9.4.13)
+Type &quot;help&quot; for help.
+
+postgres=# \q
+$
+</code></pre>
+
+</div>
+
+
+</div><div class="sidebar">
+
+<div class="wrap">
+    <h3>Product & Service</h3>
+    <ul class="ad">
+        <li><a href="https://rainpass.io/ja/" target="_blank">RAINPASS One Time ID</a></li>
+        <li><a href="https://innoaus.jp/random_id_generator">Random ID Generater</a></li>
+    </ul>
+</div><div class="wrap posts">
+    <h3>Recent Post</h3>
+    <ul>
+        
+        <li><span class="date">2019.03.04</span><br><a href="/posts/20190304_2/">CentOS 7にPostgresql Service設定</a></li>
+        
+        <li><span class="date">2019.03.04</span><br><a href="/posts/20190304_1/">CentOS7にPostgreSQL Multi-MasterデータベースPostgresql-BDR 9.4インストール</a></li>
+        
+        <li><span class="date">2019.03.03</span><br><a href="/posts/20190303/">CentOS(6/7)にgcc-7および関連開発ツールインストール</a></li>
+        
+        <li><span class="date">2019.03.02</span><br><a href="/posts/20190302/">「CentOS 7」Cisco VPN接続のためのVPNクライアントvpncインストール</a></li>
+        
+        <li><span class="date">2019.03.01</span><br><a href="/posts/20190301/">[Linux] 一般ユーザーにパスワードなしでsudoコマンドを使えるようにする</a></li>
+        
+        <li><span class="date">2019.02.28</span><br><a href="/posts/20190228/">C&#43;&#43;　Lambda関数呼び出し</a></li>
+        
+    </ul>
+
+</div>
+
+</div><script>
+window.onload = function () {
+    var article = document.getElementById('article');
+    
+    var el = article.getElementsByTagName('a');
+    for(var i = 0; i < el.length; ++i){
+        if (el[i].hostname !== window.location.hostname) {
+            el[i].target = '_blank';
+        }
+    }
+
+    var headings = article.querySelectorAll('h1, h2, h3, h4, h5, h6');
+    headings.forEach(function(heading){
+      if(heading.id){
+        var alink = '<a href="#'+heading.id+'" aria-hidden="true" class="header-anchor">#</a>';
+        heading.innerHTML = heading.innerHTML + alink;
+      }
+    });
+}
+</script>
+
+
+</div><div class="footer">
+        <div class="container">© 2019 Innoaus Inc. All Rights Reserved.</div>
+</div></body>
+</html>
