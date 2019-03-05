@@ -6,10 +6,22 @@
     <description>Recent content in Posts on innoaus | 株式会社イノス</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Mon, 04 Mar 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 05 Mar 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://innoaus.jp/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>CentOS 7にICE(Internet Communications Engine)インストール</title>
+      <link>https://innoaus.jp/posts/20190305/</link>
+      <pubDate>Tue, 05 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://innoaus.jp/posts/20190305/</guid>
+      <description>ICEはZeroC, Inc. (https://www.zeroc.com) 社が開発した分散オブジェクトモデルのためのフレームワークで、様々な言語をサポートします。
+以下はCentOS 7にIce Frameworkをインストール方法を整理しました。
+yumリポジトリ構成 $ wget https://zeroc.com/download/Ice/3.7/el7/zeroc-ice3.7.repo $ sudo cp zeroc-ice3.7.repo /etc/yum.repos.d/  Iceインストール(C++, Python, PHPそしてIce基盤サービスインストール) $ sudo yum -y install ice-all-runtime ice-all-devel  確認 slice2cppはSliceファイルをコンパイルし、C++コードを生成するコマンドです。
+$ slice2cpp slice2cpp: error: no input file Usage: slice2cpp [options] slice-files... Options: -h, --help Show this message. -v, --version Display the Ice version. -DNAME Define NAME as 1. -DNAME=DEF Define NAME as DEF. -UNAME Remove any definition for NAME. -IDIR Put DIR in the include file search path.</description>
+    </item>
     
     <item>
       <title>CentOS 7にPostgresql Service設定</title>

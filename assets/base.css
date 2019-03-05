@@ -75,13 +75,15 @@ td,th {
 .article > h6{
 	padding:1rem .5rem;
 	margin-bottom:0;
-	position: relative;
+    position: relative;
+    font-size: 1rem;
+    font-weight: bold;
 }
 .article > h1:before,
-.article > h2:before,
-.article > h3:before{
+.article > h2:before{
     width: 8px;
-    height: 25px;
+    height: 17px;
+    top: 24px;
     background-color: #5755d9;
     border-radius: 20px;
     border: 1px solid #5755d9;
@@ -89,7 +91,14 @@ td,th {
     position: absolute;
     left: -10px;
     content: "";
-    top: 26px;
+}
+.article > h3,
+.article > h4,
+.article > h5,
+.article > h6{
+    padding:1rem 0 .5rem 0;
+    border-bottom: 1px solid #CCC;
+    margin-bottom:1rem;
 }
 h1:hover .header-anchor,h2:hover .header-anchor,h3:hover .header-anchor,h4:hover .header-anchor,h5:hover .header-anchor,h6:hover .header-anchor {
     opacity: 1
@@ -215,9 +224,14 @@ a.header-anchor {
     font-size: .7rem;
 }
 .post-index .img-responsive{
-    border: 1px solid #f5f1f1;
+    opacity: .84;
+    box-shadow: 0 3px 12px -1px rgba(7,10,25,.2), 0 22px 27px -20px rgba(7,10,25,.2);
+    transition: all .3s ease;
 }
-
+.post-index .img-responsive:hover{
+    opacity: 1;
+    transform: translate(0,-2px)
+}
 
 .footer{
     text-align: center;
