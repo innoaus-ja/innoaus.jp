@@ -4,25 +4,27 @@
 <meta charset="utf-8" />
 
 <title>
-会社情報 - innoaus | 株式会社イノス
+Androidの「日付と時刻」設定値を確認するコードサンプル - innoaus | 株式会社イノス
 </title>
 
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <link rel="icon" type="image/png" href="https://innoaus.jp/images/favicon.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-<meta name="title" content="会社情報 - innoaus | 株式会社イノス">
-<meta name="description" content="株式会社イノスは、システム開発をはじめ、セキュリティー関連サービスを提供しています。">
-<meta property="og:title" content="会社情報">
+<meta name="title" content="Androidの「日付と時刻」設定値を確認するコードサンプル - innoaus | 株式会社イノス">
+<meta name="description" content="Androidデバイス設定「日付と時刻」の設定値（On/Off）を確認するコードサンプル">
+<meta property="og:title" content="Androidの「日付と時刻」設定値を確認するコードサンプル">
 
 <meta property="og:type" content="article">
-<meta property="article:published_time" content="0001-01-01">
+<meta property="article:published_time" content="2019-03-05">
 
-<meta property="og:description" content="株式会社イノスは、システム開発をはじめ、セキュリティー関連サービスを提供しています。">
-<meta property="og:url" content="https://innoaus.jp/about/">
+<meta property="og:description" content="Androidデバイス設定「日付と時刻」の設定値（On/Off）を確認するコードサンプル">
+<meta property="og:url" content="https://innoaus.jp/posts/20190305_2/">
 <meta property="og:site_name" content="innoaus | 株式会社イノス">
 
-<meta property="og:image" content="https://innoaus.jp/images/innoaus_og_image.png">
+<meta property="og:image" content="https://innoaus.jp/images/android_1.jpg">
 
+
+<meta property="og:tags" content="android">
 
 <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
 <link rel="stylesheet" href="https://innoaus.jp/assets/app.min.css">
@@ -55,9 +57,17 @@
 <div class="content">
 <div>
     
+    <span class="date">2019.03.05</span>
+    
 </div>
 
-<h1 class="title">会社情報 
+<h1 class="title">Androidの「日付と時刻」設定値を確認するコードサンプル 
+    
+    <div style="font-size: .8rem;padding-top:1rem;">
+            
+            <a href="/tags/android" class="chip">android</a>
+            
+    </div>
     
 </h1>
 
@@ -66,24 +76,62 @@
 <div id="article" class="article">
     
 
-<p>会社名 : 株式会社イノス（Innoaus、<small>大阪府大阪市</small>）
-<hr>
-<h2>Skill</h2>
-<dl>
-    <dt>OS</dt>
-    <dd>Embedded OS, Unix, Linux, Windows, Mac OS, iOS, Android</dd>
-    <dt>Language</dt>
-    <dd>C, C++, C#, Java, Objective-C, Swift, Javascript, PHP</dd>
-    <dt>Database</dt>
-    <dd>PostgresSQL, MS SQL, MySQL, Oracle</dd>
-    <dt>3rd Party Lib</dt>
-    <dd>Crypto++, ACE, ICE, BOOST, ZeroMQ, OpenSSL, Xtreme Toolkit, DevExpress</dd>
-</dl>
-<hr></p>
+<p>Androidデバイス設定「日付と時刻」の設定値（On/Off）をコードから確認する方法です。</p>
 
-<h2 id="contact">Contact</h2>
+<h2 id="環境">環境</h2>
 
-<p>info@innoaus.jp</p>
+<ul>
+<li>Android Device Version: android API 28</li>
+<li>Android Studio 3.3.1</li>
+<li>Kotlin 1.3.20</li>
+</ul>
+
+<h2 id="日付と時刻-確認">「日付と時刻」確認</h2>
+
+<p>デバイス設定ー＞「システム」ー＞「日付と時刻」メニューから確認します。</p>
+
+<p><img src="/images/20190305_2_image3.jpg" alt="" /></p>
+
+<h2 id="new-project">New Project</h2>
+
+<p>新規プロジェクトを作成します。</p>
+
+<p><img src="/images/20190305_2_image1.png" alt="" /></p>
+
+<p>EmptyActivity Template選択</p>
+
+<p><img src="/images/20190305_2_image2.png" alt="" /></p>
+
+<h2 id="サンプルコード">サンプルコード</h2>
+
+<pre><code class="language-xml">//activity_main.xml
+&lt;TextView   android:id=&quot;@+id/text_result&quot;
+            android:layout_width=&quot;wrap_content&quot;
+            android:layout_height=&quot;wrap_content&quot;/&gt;
+</code></pre>
+
+<pre><code class="language-kotlin">// #MainActivity.kt
+fun check() {
+    val result = android.provider.Settings.Global.getInt(contentResolver, android.provider.Settings.Global.AUTO_TIME, 0)
+    if (result == 1) {
+        text_result.setText(&quot;DateTime Sync: On&quot;)
+    } else {
+        text_result.setText(&quot;DateTime Sync: Off&quot;)
+    }
+}
+</code></pre>
+
+<h2 id="結果">結果</h2>
+
+<p>「日付と時刻」の設定値によって<code>DateTime Sync: On</code>と<code>DateTime Sync: Off</code>が表示されます。</p>
+
+<p><img src="/images/20190305_2_image4.jpg" alt="" /></p>
+
+<h2 id="参考">参考</h2>
+
+<ul>
+<li>Android Developer Site　:　<a href="https://developer.android.com/reference/android/provider/Settings.Global.html#AUTO_TIME">Settings.Global.AUTO_TIME</a></li>
+</ul>
 
 </div>
 

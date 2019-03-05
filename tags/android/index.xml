@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Android on innoaus | 株式会社イノス</title>
+    <link>https://innoaus.jp/tags/android/</link>
+    <description>Recent content in Android on innoaus | 株式会社イノス</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Tue, 05 Mar 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://innoaus.jp/tags/android/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Androidの「日付と時刻」設定値を確認するコードサンプル</title>
+      <link>https://innoaus.jp/posts/20190305_2/</link>
+      <pubDate>Tue, 05 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://innoaus.jp/posts/20190305_2/</guid>
+      <description>Androidデバイス設定「日付と時刻」の設定値（On/Off）をコードから確認する方法です。
+環境  Android Device Version: android API 28 Android Studio 3.3.1 Kotlin 1.3.20  「日付と時刻」確認 デバイス設定ー＞「システム」ー＞「日付と時刻」メニューから確認します。
+New Project 新規プロジェクトを作成します。
+EmptyActivity Template選択
+サンプルコード //activity_main.xml &amp;lt;TextView android:id=&amp;quot;@+id/text_result&amp;quot; android:layout_width=&amp;quot;wrap_content&amp;quot; android:layout_height=&amp;quot;wrap_content&amp;quot;/&amp;gt;  // #MainActivity.kt fun check() { val result = android.provider.Settings.Global.getInt(contentResolver, android.provider.Settings.Global.AUTO_TIME, 0) if (result == 1) { text_result.setText(&amp;quot;DateTime Sync: On&amp;quot;) } else { text_result.setText(&amp;quot;DateTime Sync: Off&amp;quot;) } }  結果 「日付と時刻」の設定値によってDateTime Sync: OnとDateTime Sync: Offが表示されます。
+参考  Android Developer Site　:　Settings.</description>
+    </item>
+    
+  </channel>
+</rss>
