@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://innoaus.jp/posts/20190306/</loc>
+    <lastmod>2019-03-06T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://innoaus.jp/posts/20190305_2/</loc>
     <lastmod>2019-03-05T00:00:00+00:00</lastmod>
   </url>
@@ -69,7 +74,7 @@
   
   <url>
     <loc>https://innoaus.jp/</loc>
-    <lastmod>2019-03-05T00:00:00+00:00</lastmod>
+    <lastmod>2019-03-06T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -91,7 +96,7 @@
   
   <url>
     <loc>https://innoaus.jp/tags/centos/</loc>
-    <lastmod>2019-03-05T00:00:00+00:00</lastmod>
+    <lastmod>2019-03-06T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -115,7 +120,7 @@
   
   <url>
     <loc>https://innoaus.jp/posts/</loc>
-    <lastmod>2019-03-05T00:00:00+00:00</lastmod>
+    <lastmod>2019-03-06T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   

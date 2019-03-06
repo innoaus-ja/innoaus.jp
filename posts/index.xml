@@ -6,10 +6,30 @@
     <description>Recent content in Posts on innoaus | 株式会社イノス</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Tue, 05 Mar 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 06 Mar 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://innoaus.jp/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>CentOS 7でACEライブラリビルド</title>
+      <link>https://innoaus.jp/posts/20190306/</link>
+      <pubDate>Wed, 06 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://innoaus.jp/posts/20190306/</guid>
+      <description>以下は https://github.com/DOCGroup/ACE_TAO のソースからCentOS 7でAECライブラリビルドする方法です。
+必要事項 gcc, g++コンパイラーが必要です。
+CentOS 6,7にgcc-7および関連開発ツールインストール 参考
+最新バージョンダウンロード https://github.com/DOCGroup/ACE_TAO/releases から最新バージョンをダウンロードします。
+現在最新バージョンは6.5.4です。 ACE-6.5.4.tar.gz
+$ wget https://github.com/DOCGroup/ACE_TAO/releases/download/ACE%2BTAO-6_5_4/ACE-6.5.4.tar.gz  解凍 $ tar xvfz ACE-5.6.4.tar.gz  コンパイル環境設定 ACEライブラリをコンパイルするためには環境変数にACE_ROOTの設定が必要です。
+ACE_ROOT環境変数はACE_wrappersパスを意味します。
+$ cd ACE_wrappers $ export ACE_ROOT=$PWD  リナックスバージョンのconfig.hファイルをACE_wrappers/aceに作成します。
+ここでは簡単にsymbolic linkを利用し作成します。
+$ cd ACE_wrappers/ace $ ln -s config-linux.h config.h  そして、コンパイラーオプションを設定するため、ACE_wrappers/include/makeinclude/platform_macros.GNUファイルを次のように作成します。
+$ vi ACE_wrappers/include/makeinclude/platform_macros.GNU include $(ACE_ROOT)/include/makeinclude/platform_linux.GNU INSTALL_PREFIX=$(HOME)/devtools CPPFLAGS=-fPIC  動的ライブラリの作成 $ cd ACE_wrappers $ make -j 8 install  このようにすれば、コンパイルされた結果は$HOME/devtoolsにインストールされます。
+-j 8は並列コンパイルオプション、8はコア数を意味します。</description>
+    </item>
     
     <item>
       <title>Androidの「日付と時刻」設定値を確認するコードサンプル</title>
