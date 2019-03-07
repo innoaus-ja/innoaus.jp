@@ -6,7 +6,7 @@
     <description>Recent content in Slack on innoaus | 株式会社イノス</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 06 Mar 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 07 Mar 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://innoaus.jp/tags/slack/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,7 +14,7 @@
     <item>
       <title>SlackとGitHubを連携して通知を受け取る</title>
       <link>https://innoaus.jp/posts/20190307_1/</link>
-      <pubDate>Wed, 06 Mar 2019 00:00:00 +0000</pubDate>
+      <pubDate>Thu, 07 Mar 2019 00:00:00 +0000</pubDate>
       
       <guid>https://innoaus.jp/posts/20190307_1/</guid>
       <description>GitHub App追加 Slackのを選択するとAPP検索が表示されます。

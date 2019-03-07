@@ -12,6 +12,24 @@
     
     
     <item>
+      <title>SlackとGitHubを連携して通知を受け取る</title>
+      <link>https://innoaus.jp/posts/20190307_1/</link>
+      <pubDate>Thu, 07 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://innoaus.jp/posts/20190307_1/</guid>
+      <description>GitHub App追加 Slackのを選択するとAPP検索が表示されます。
+Githubを検索し[インストール]を選択します。
+するとSlack AppsにGitHubメニューが追加されます。
+GitHub repository通知登録 GitHubメニュー選択後、入力欄に追加するgithub repositoryを /github subscribe owner/repository形式入力します。
+GitHub認証 Githubアカウント情報を連携するボタンが表示されるのでconnect GitHub accountを選択します。 ブラウザからGitHubにログインするとSlackに次のような通知が届きます。 続けてどのrepositoryを連携するか選択します。
+完了するとSlackにSubscribed to owner/repositoryと通知が来ると完了です。
+repository通知削除 登録したrepositoryを削除する場合はunsubscribeコマンドを利用します。
+/github unsubscribe owner/repository
+通知項目 デフォルト通知項目。
+ issues - Opened or closed issues pulls - New or merged pull requests statuses - Statuses on pull requests commits - New commits on the default branch (usually master) deployments - Updated status on deployments public - A repository switching from private to public releases - Published releases  追加可能な通知項目</description>
+    </item>
+    
+    <item>
       <title>ダウンタイムを最小限に動作中のサービスをアップデートする方法（CentOS 7）</title>
       <link>https://innoaus.jp/posts/20190307/</link>
       <pubDate>Thu, 07 Mar 2019 00:00:00 +0000</pubDate>
@@ -44,24 +62,6 @@ $ cd ACE_wrappers $ export ACE_ROOT=$PWD  リナックスバージョンのconfi
 $ cd ACE_wrappers/ace $ ln -s config-linux.h config.h  そして、コンパイラーオプションを設定するため、ACE_wrappers/include/makeinclude/platform_macros.GNUファイルを次のように作成します。
 $ vi ACE_wrappers/include/makeinclude/platform_macros.GNU include $(ACE_ROOT)/include/makeinclude/platform_linux.GNU INSTALL_PREFIX=$(HOME)/devtools CPPFLAGS=-fPIC  動的ライブラリの作成 $ cd ACE_wrappers $ make -j 8 install  このようにすれば、コンパイルされた結果は$HOME/devtoolsにインストールされます。
 -j 8は並列コンパイルオプション、8はコア数を意味します。</description>
-    </item>
-    
-    <item>
-      <title>SlackとGitHubを連携して通知を受け取る</title>
-      <link>https://innoaus.jp/posts/20190307_1/</link>
-      <pubDate>Wed, 06 Mar 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://innoaus.jp/posts/20190307_1/</guid>
-      <description>GitHub App追加 Slackのを選択するとAPP検索が表示されます。
-Githubを検索し[インストール]を選択します。
-するとSlack AppsにGitHubメニューが追加されます。
-GitHub repository通知登録 GitHubメニュー選択後、入力欄に追加するgithub repositoryを /github subscribe owner/repository形式入力します。
-GitHub認証 Githubアカウント情報を連携するボタンが表示されるのでconnect GitHub accountを選択します。 ブラウザからGitHubにログインするとSlackに次のような通知が届きます。 続けてどのrepositoryを連携するか選択します。
-完了するとSlackにSubscribed to owner/repositoryと通知が来ると完了です。
-repository通知削除 登録したrepositoryを削除する場合はunsubscribeコマンドを利用します。
-/github unsubscribe owner/repository
-通知項目 デフォルト通知項目。
- issues - Opened or closed issues pulls - New or merged pull requests statuses - Statuses on pull requests commits - New commits on the default branch (usually master) deployments - Updated status on deployments public - A repository switching from private to public releases - Published releases  追加可能な通知項目</description>
     </item>
     
     <item>
