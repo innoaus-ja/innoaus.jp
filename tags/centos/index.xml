@@ -6,10 +6,25 @@
     <description>Recent content in Centos on innoaus | 株式会社イノス</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 06 Mar 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 07 Mar 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://innoaus.jp/tags/centos/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>ダウンタイムを最小限に動作中のサービスをアップデートする方法（CentOS 7）</title>
+      <link>https://innoaus.jp/posts/20190307/</link>
+      <pubDate>Thu, 07 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://innoaus.jp/posts/20190307/</guid>
+      <description> シナリオ  サービスは動作中 サービス実行ファイル名はa_process サービス実行ファイル動作に必要なshared objectファイル名はa_lib.so サービス名はa_process.service a_lib.soファイルをアップデート  アップデートスクリプト作成 $ vi update_service.sh #!/bin/sh sudo service a_process.service stop sudo cp a_lib.so {ディレクトリ}/a_lib.so sudo systemctl daemon-reload sudo service a_process.service start  作成したupdate_service.shに実行モードを設定します。
+$ chmod +x update_service.sh  サービスアップデートのためにはsudo権限が必要です。
+動作中のサービスを停止します。
+sudo service a_process.service stop  shared objectをコピーします。
+sudo cp a_lib.so {ディレクトリ}/a_lib.so  サービスが更新されるとサービスコントローラーのreloadが必要です。
+sudo systemctl daemon-reload  サービスをスタートします。
+sudo service a_process.service start  </description>
+    </item>
     
     <item>
       <title>CentOS 7でACEライブラリビルド</title>

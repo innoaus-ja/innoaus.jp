@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Slack on innoaus | 株式会社イノス</title>
+    <link>https://innoaus.jp/tags/slack/</link>
+    <description>Recent content in Slack on innoaus | 株式会社イノス</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Wed, 06 Mar 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://innoaus.jp/tags/slack/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>SlackとGitHubを連携して通知を受け取る</title>
+      <link>https://innoaus.jp/posts/20190307_1/</link>
+      <pubDate>Wed, 06 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://innoaus.jp/posts/20190307_1/</guid>
+      <description>GitHub App追加 Slackのを選択するとAPP検索が表示されます。
+Githubを検索し[インストール]を選択します。
+するとSlack AppsにGitHubメニューが追加されます。
+GitHub repository通知登録 GitHubメニュー選択後、入力欄に追加するgithub repositoryを /github subscribe owner/repository形式入力します。
+GitHub認証 Githubアカウント情報を連携するボタンが表示されるのでconnect GitHub accountを選択します。 ブラウザからGitHubにログインするとSlackに次のような通知が届きます。 続けてどのrepositoryを連携するか選択します。
+完了するとSlackにSubscribed to owner/repositoryと通知が来ると完了です。
+repository通知削除 登録したrepositoryを削除する場合はunsubscribeコマンドを利用します。
+/github unsubscribe owner/repository
+通知項目 デフォルト通知項目。
+ issues - Opened or closed issues pulls - New or merged pull requests statuses - Statuses on pull requests commits - New commits on the default branch (usually master) deployments - Updated status on deployments public - A repository switching from private to public releases - Published releases  追加可能な通知項目</description>
+    </item>
+    
+  </channel>
+</rss>

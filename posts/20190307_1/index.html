@@ -4,27 +4,29 @@
 <meta charset="utf-8" />
 
 <title>
-vuepressを試す（環境準備） - innoaus | 株式会社イノス
+SlackとGitHubを連携して通知を受け取る - innoaus | 株式会社イノス
 </title>
 
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <link rel="icon" type="image/png" href="https://innoaus.jp/images/favicon.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-<meta name="title" content="vuepressを試す（環境準備） - innoaus | 株式会社イノス">
-<meta name="description" content="静的サイトジェネレーターvuepressを試してみる。">
-<meta property="og:title" content="vuepressを試す（環境準備）">
+<meta name="title" content="SlackとGitHubを連携して通知を受け取る - innoaus | 株式会社イノス">
+<meta name="description" content="SlackとGitHubを連携し、GitHub repositoryがアップデートされるとSlackに通知する方法です。">
+<meta property="og:title" content="SlackとGitHubを連携して通知を受け取る">
 
 <meta property="og:type" content="article">
-<meta property="article:published_time" content="2019-02-18">
+<meta property="article:published_time" content="2019-03-06">
 
-<meta property="og:description" content="静的サイトジェネレーターvuepressを試してみる。">
-<meta property="og:url" content="https://innoaus.jp/posts/20190218/">
+<meta property="og:description" content="SlackとGitHubを連携し、GitHub repositoryがアップデートされるとSlackに通知する方法です。">
+<meta property="og:url" content="https://innoaus.jp/posts/20190307_1/">
 <meta property="og:site_name" content="innoaus | 株式会社イノス">
 
-<meta property="og:image" content="https://innoaus.jp/images/vuepress_logo.jpg">
+<meta property="og:image" content="https://innoaus.jp/images/20190307_0.jpg">
 
 
-<meta property="og:tags" content="vuepress">
+<meta property="og:tags" content="GitHub">
+
+<meta property="og:tags" content="Slack">
 
 <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
 <link rel="stylesheet" href="https://innoaus.jp/assets/app.min.css">
@@ -57,15 +59,17 @@ vuepressを試す（環境準備） - innoaus | 株式会社イノス
 <div class="content">
 <div>
     
-    <span class="date">2019.02.18</span>
+    <span class="date">2019.03.06</span>
     
 </div>
 
-<h1 class="title">vuepressを試す（環境準備） 
+<h1 class="title">SlackとGitHubを連携して通知を受け取る 
     
     <div style="font-size: .8rem;padding-top:1rem;">
             
-            <a href="/tags/vuepress" class="chip">vuepress</a>
+            <a href="/tags/github" class="chip">GitHub</a>
+            
+            <a href="/tags/slack" class="chip">Slack</a>
             
     </div>
     
@@ -76,61 +80,70 @@ vuepressを試す（環境準備） - innoaus | 株式会社イノス
 <div id="article" class="article">
     
 
-<p>vuepressは現在バージョン<code>0.x</code>と<code>1.x alpha</code>二つありますが、<code>1.x</code>からはplugin機能が強化され、Blogサイトなどを構築しやすくなっているようです。<br />
-（ドキュメント系サイトならどのバージョンでもそんなに差はないと思います。）</p>
+<h2 id="github-app追加">GitHub App追加</h2>
 
-<h2 id="インストール">インストール</h2>
+<p>Slackの<img src="/images/20190307_1.png" alt="Slack" />を選択するとAPP検索が表示されます。<br />
+Githubを検索し[インストール]を選択します。<br />
+<img src="/images/20190307_2.png" alt="Slack" /></p>
 
-<p>今回は<code>1.x alpha</code>バージョンをローカルインストールします。<br />
-作業用フォルダ(vuepress_v1_test)作成後、</p>
+<p>するとSlack AppsにGitHubメニューが追加されます。<br />
+<img src="/images/20190307_3.png" alt="Slack" /></p>
 
-<pre><code class="language-sh">cd vuepress_v1_test
-npm init -y
-npm install -D vuepress@next
-</code></pre>
+<h2 id="github-repository通知登録">GitHub repository通知登録</h2>
 
-<p>インストール完了後、フォルダ(<code>dev_docs</code>)を作成します。<br />
-vuepressをローカルインストールしたので、<code>vuepress</code>コマンドを使うことはできませんので<code>npm scripts</code>を利用します。<br />
-<code>package.json</code>ファイルの<code>scripts</code>部分を次のように変更します。</p>
+<p>GitHubメニュー選択後、入力欄に追加するgithub repositoryを
+<code>/github subscribe owner/repository</code>形式入力します。<br />
+<img src="/images/20190307_4.png" alt="Slack" /></p>
 
-<pre><code class="language-json">&quot;scripts&quot;: {
-    &quot;dev&quot;: &quot;vuepress dev dev_docs&quot;,
-    &quot;build&quot;: &quot;vuepress build dev_docs&quot;
-},
-</code></pre>
+<h2 id="github認証">GitHub認証</h2>
 
-<p>*<code>scripts</code>を利用しない場合は</p>
+<p>Githubアカウント情報を連携するボタンが表示されるので<code>connect GitHub account</code>を選択します。
+<img src="/images/20190307_5.png" alt="Slack" /></p>
 
-<pre><code class="language-sh">npx vuepress dev dev_docs
-</code></pre>
+<p>ブラウザからGitHubにログインするとSlackに次のような通知が届きます。
+<img src="/images/20190307_6.png" alt="Slack" /></p>
 
-<p>これで環境準備が終わりました。</p>
+<p>続けてどのrepositoryを連携するか選択します。<br />
+<img src="/images/20190307_7.png" alt="Slack" /></p>
 
-<h2 id="markdownファイルを書く">markdownファイルを書く</h2>
+<p>完了するとSlackに<code>Subscribed to owner/repository</code>と通知が来ると完了です。<br />
+<img src="/images/20190307_8.png" alt="Slack" /></p>
 
-<p><code>dev_docs</code>フォルダに<code>readme.md</code>ファイルを作成し、markdownを書きます。</p>
+<h2 id="repository通知削除">repository通知削除</h2>
 
-<pre><code class="language-sh"># VuePressテスト
-</code></pre>
+<p>登録したrepositoryを削除する場合は<code>unsubscribe</code>コマンドを利用します。<br />
+ <code>/github unsubscribe owner/repository</code></p>
 
-<p>（<code>readme.md</code>は<code>index.html</code>に変換されます。）</p>
+<h2 id="通知項目">通知項目</h2>
 
-<h2 id="ブラウザ表示確認">ブラウザ表示確認</h2>
+<p>デフォルト通知項目。</p>
 
-<pre><code class="language-sh">npm run dev
-</code></pre>
+<ul>
+<li><code>issues</code> - Opened or closed issues</li>
+<li><code>pulls</code> - New or merged pull requests</li>
+<li><code>statuses</code> - Statuses on pull requests</li>
+<li><code>commits</code> - New commits on the default branch (usually <code>master</code>)</li>
+<li><code>deployments</code> - Updated status on deployments</li>
+<li><code>public</code> - A repository switching from private to public</li>
+<li><code>releases</code> - Published releases</li>
+</ul>
 
-<p>ブラウザから<code>http://localhost:8080/</code>を開くと<code>VuePressテスト</code>が表示されます。<br />
-<code>readme.md</code>ファイルを編集するとブラウザが自動更新されるので、編集内容を確認しながらmarkdownを書くことができます。</p>
+<p>追加可能な通知項目</p>
 
-<h2 id="build">Build</h2>
+<ul>
+<li><code>reviews</code> - Pull request reviews</li>
+<li><code>comments</code> - New comments on issues and pull requests</li>
+<li><code>branches</code> - Created or deleted branches</li>
+<li><code>commits:all</code> - All commits pushed to any branch</li>
+</ul>
 
-<pre><code class="language-sh">npm run build
-</code></pre>
+<p>reviews, commentsを追加する場合は<br />
+<code>/github subscribe owner/repository reviews comments</code></p>
 
-<p><code>build</code>コマンドを実行すると<code>.vuepress\dist</code>フォルダに変換されたHTMLファイルが出力されます。</p>
+<p>削除する場合は<br />
+<code>/github unsubscribe owner/repository reviews comments</code></p>
 
-<p>基本設定などは次回に。</p>
+<p>詳細 : <a href="https://github.com/integrations/Slack#configuration">https://github.com/integrations/Slack#configuration</a></p>
 
 </div>
 

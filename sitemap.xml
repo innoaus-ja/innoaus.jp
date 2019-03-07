@@ -3,7 +3,17 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://innoaus.jp/posts/20190307/</loc>
+    <lastmod>2019-03-07T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://innoaus.jp/posts/20190306/</loc>
+    <lastmod>2019-03-06T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://innoaus.jp/posts/20190307_1/</loc>
     <lastmod>2019-03-06T00:00:00+00:00</lastmod>
   </url>
   
@@ -74,7 +84,7 @@
   
   <url>
     <loc>https://innoaus.jp/</loc>
-    <lastmod>2019-03-06T00:00:00+00:00</lastmod>
+    <lastmod>2019-03-07T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -96,6 +106,12 @@
   
   <url>
     <loc>https://innoaus.jp/tags/centos/</loc>
+    <lastmod>2019-03-07T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://innoaus.jp/tags/github/</loc>
     <lastmod>2019-03-06T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
@@ -120,12 +136,18 @@
   
   <url>
     <loc>https://innoaus.jp/posts/</loc>
-    <lastmod>2019-03-06T00:00:00+00:00</lastmod>
+    <lastmod>2019-03-07T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://innoaus.jp/random_id_generator/</loc>
+  </url>
+  
+  <url>
+    <loc>https://innoaus.jp/tags/slack/</loc>
+    <lastmod>2019-03-06T00:00:00+00:00</lastmod>
+    <priority>0</priority>
   </url>
   
   <url>

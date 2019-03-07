@@ -4,27 +4,27 @@
 <meta charset="utf-8" />
 
 <title>
-vuepressを試す（環境準備） - innoaus | 株式会社イノス
+ダウンタイムを最小限に動作中のサービスをアップデートする方法（CentOS 7） - innoaus | 株式会社イノス
 </title>
 
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <link rel="icon" type="image/png" href="https://innoaus.jp/images/favicon.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-<meta name="title" content="vuepressを試す（環境準備） - innoaus | 株式会社イノス">
-<meta name="description" content="静的サイトジェネレーターvuepressを試してみる。">
-<meta property="og:title" content="vuepressを試す（環境準備）">
+<meta name="title" content="ダウンタイムを最小限に動作中のサービスをアップデートする方法（CentOS 7） - innoaus | 株式会社イノス">
+<meta name="description" content="運用中のサーバーのダウンタイムを最小限に動作中のサービスをアップデートする方法">
+<meta property="og:title" content="ダウンタイムを最小限に動作中のサービスをアップデートする方法（CentOS 7）">
 
 <meta property="og:type" content="article">
-<meta property="article:published_time" content="2019-02-18">
+<meta property="article:published_time" content="2019-03-07">
 
-<meta property="og:description" content="静的サイトジェネレーターvuepressを試してみる。">
-<meta property="og:url" content="https://innoaus.jp/posts/20190218/">
+<meta property="og:description" content="運用中のサーバーのダウンタイムを最小限に動作中のサービスをアップデートする方法">
+<meta property="og:url" content="https://innoaus.jp/posts/20190307/">
 <meta property="og:site_name" content="innoaus | 株式会社イノス">
 
-<meta property="og:image" content="https://innoaus.jp/images/vuepress_logo.jpg">
+<meta property="og:image" content="https://innoaus.jp/images/business_camera.jpg">
 
 
-<meta property="og:tags" content="vuepress">
+<meta property="og:tags" content="CentOS">
 
 <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
 <link rel="stylesheet" href="https://innoaus.jp/assets/app.min.css">
@@ -57,15 +57,15 @@ vuepressを試す（環境準備） - innoaus | 株式会社イノス
 <div class="content">
 <div>
     
-    <span class="date">2019.02.18</span>
+    <span class="date">2019.03.07</span>
     
 </div>
 
-<h1 class="title">vuepressを試す（環境準備） 
+<h1 class="title">ダウンタイムを最小限に動作中のサービスをアップデートする方法（CentOS 7） 
     
     <div style="font-size: .8rem;padding-top:1rem;">
             
-            <a href="/tags/vuepress" class="chip">vuepress</a>
+            <a href="/tags/centos" class="chip">CentOS</a>
             
     </div>
     
@@ -76,61 +76,55 @@ vuepressを試す（環境準備） - innoaus | 株式会社イノス
 <div id="article" class="article">
     
 
-<p>vuepressは現在バージョン<code>0.x</code>と<code>1.x alpha</code>二つありますが、<code>1.x</code>からはplugin機能が強化され、Blogサイトなどを構築しやすくなっているようです。<br />
-（ドキュメント系サイトならどのバージョンでもそんなに差はないと思います。）</p>
+<h2 id="シナリオ">シナリオ</h2>
 
-<h2 id="インストール">インストール</h2>
+<ol>
+<li>サービスは動作中</li>
+<li>サービス実行ファイル名は<code>a_process</code></li>
+<li>サービス実行ファイル動作に必要なshared objectファイル名は<code>a_lib.so</code></li>
+<li>サービス名は<code>a_process.service</code></li>
+<li><code>a_lib.so</code>ファイルをアップデート</li>
+</ol>
 
-<p>今回は<code>1.x alpha</code>バージョンをローカルインストールします。<br />
-作業用フォルダ(vuepress_v1_test)作成後、</p>
+<h2 id="アップデートスクリプト作成">アップデートスクリプト作成</h2>
 
-<pre><code class="language-sh">cd vuepress_v1_test
-npm init -y
-npm install -D vuepress@next
+<pre><code class="language-shell">$ vi update_service.sh
+
+#!/bin/sh
+
+sudo service a_process.service stop
+sudo cp a_lib.so {ディレクトリ}/a_lib.so
+sudo systemctl daemon-reload
+sudo service a_process.service start
+
 </code></pre>
 
-<p>インストール完了後、フォルダ(<code>dev_docs</code>)を作成します。<br />
-vuepressをローカルインストールしたので、<code>vuepress</code>コマンドを使うことはできませんので<code>npm scripts</code>を利用します。<br />
-<code>package.json</code>ファイルの<code>scripts</code>部分を次のように変更します。</p>
+<p>作成した<code>update_service.sh</code>に実行モードを設定します。</p>
 
-<pre><code class="language-json">&quot;scripts&quot;: {
-    &quot;dev&quot;: &quot;vuepress dev dev_docs&quot;,
-    &quot;build&quot;: &quot;vuepress build dev_docs&quot;
-},
+<pre><code class="language-shell">$ chmod +x update_service.sh
 </code></pre>
 
-<p>*<code>scripts</code>を利用しない場合は</p>
+<p>サービスアップデートのためには<code>sudo</code>権限が必要です。</p>
 
-<pre><code class="language-sh">npx vuepress dev dev_docs
+<p>動作中のサービスを停止します。</p>
+
+<pre><code class="language-shell">sudo service a_process.service stop
 </code></pre>
 
-<p>これで環境準備が終わりました。</p>
+<p>shared objectをコピーします。</p>
 
-<h2 id="markdownファイルを書く">markdownファイルを書く</h2>
-
-<p><code>dev_docs</code>フォルダに<code>readme.md</code>ファイルを作成し、markdownを書きます。</p>
-
-<pre><code class="language-sh"># VuePressテスト
+<pre><code class="language-shell">sudo cp a_lib.so {ディレクトリ}/a_lib.so
 </code></pre>
 
-<p>（<code>readme.md</code>は<code>index.html</code>に変換されます。）</p>
+<p>サービスが更新されるとサービスコントローラーの<code>reload</code>が必要です。</p>
 
-<h2 id="ブラウザ表示確認">ブラウザ表示確認</h2>
-
-<pre><code class="language-sh">npm run dev
+<pre><code class="language-shell">sudo systemctl daemon-reload
 </code></pre>
 
-<p>ブラウザから<code>http://localhost:8080/</code>を開くと<code>VuePressテスト</code>が表示されます。<br />
-<code>readme.md</code>ファイルを編集するとブラウザが自動更新されるので、編集内容を確認しながらmarkdownを書くことができます。</p>
+<p>サービスをスタートします。</p>
 
-<h2 id="build">Build</h2>
-
-<pre><code class="language-sh">npm run build
+<pre><code class="language-shell">sudo service a_process.service start
 </code></pre>
-
-<p><code>build</code>コマンドを実行すると<code>.vuepress\dist</code>フォルダに変換されたHTMLファイルが出力されます。</p>
-
-<p>基本設定などは次回に。</p>
 
 </div>
 

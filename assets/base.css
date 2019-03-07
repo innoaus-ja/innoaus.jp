@@ -26,6 +26,9 @@ pre[class*="language-"]{
     margin-bottom: 1.2rem;
     overflow: auto;
 }
+code[class*="language-"]{
+    padding-left:0;
+}
 
 :not(pre) > code{
     margin: 0;
@@ -112,6 +115,9 @@ a.header-anchor {
 }
 .article img{
 	margin : .5rem 0;
+}
+.article p img{
+	vertical-align: middle;
 }
 .container{
     max-width: 1050px;
