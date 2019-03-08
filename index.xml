@@ -6,10 +6,24 @@
     <description>Recent content on innoaus | 株式会社イノス</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Thu, 07 Mar 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 08 Mar 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://innoaus.jp/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Nginx 1.14をCentOS7にインストールする</title>
+      <link>https://innoaus.jp/posts/20190308/</link>
+      <pubDate>Fri, 08 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://innoaus.jp/posts/20190308/</guid>
+      <description>作業ログとして残しておきます。
+Nginx リポジトリ追加 sudo rpm -ivh http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-7-0.el7.ngx.noarch.rpm  パッケージ情報からバージョン確認 # sudo yum info --enablerepo=nginx nginx ~~~中略 Version : 1.14.2.  インストール sudo yum -y install --enablerepo=nginx nginx  バージョン確認 # nginx -v nginx version: nginx/1.14.2  Nginx起動 sudo systemctl start nginx  ブラウザからIPアドレス(http://xxx.xxx.xxx.xxx/)にアクセスしnginxのデフォルトページが表示されることを確認。
+ドキュメントルートディレクトリ変更 Nginxデフォルトルートディレクトリ　：　/usr/share/nginx/html
+/var/www/html/exemple.comへ変更する場合。
+cd /etc/nginx/conf.d // 念のためバックアップ sudo cp default.conf default.conf.back sudo mv default.conf exemple.com.conf  exemple.com.confのlocation部分のrootパスを変更します。
+sudo vi localhost.conf - location / { - root /usr/share/nginx/html; - index index.</description>
+    </item>
     
     <item>
       <title>SlackとGitHubを連携して通知を受け取る</title>

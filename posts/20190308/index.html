@@ -4,27 +4,29 @@
 <meta charset="utf-8" />
 
 <title>
-Androidの「日付と時刻」設定値を確認するコードサンプル - innoaus | 株式会社イノス
+Nginx 1.14をCentOS7にインストールする - innoaus | 株式会社イノス
 </title>
 
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <link rel="icon" type="image/png" href="https://innoaus.jp/images/favicon.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-<meta name="title" content="Androidの「日付と時刻」設定値を確認するコードサンプル - innoaus | 株式会社イノス">
-<meta name="description" content="Androidデバイス設定「日付と時刻」の設定値（On/Off）を確認するコードサンプル">
-<meta property="og:title" content="Androidの「日付と時刻」設定値を確認するコードサンプル">
+<meta name="title" content="Nginx 1.14をCentOS7にインストールする - innoaus | 株式会社イノス">
+<meta name="description" content="">
+<meta property="og:title" content="Nginx 1.14をCentOS7にインストールする">
 
 <meta property="og:type" content="article">
-<meta property="article:published_time" content="2019-03-05">
+<meta property="article:published_time" content="2019-03-08">
 
-<meta property="og:description" content="Androidデバイス設定「日付と時刻」の設定値（On/Off）を確認するコードサンプル">
-<meta property="og:url" content="https://innoaus.jp/posts/20190305_2/">
+<meta property="og:description" content="">
+<meta property="og:url" content="https://innoaus.jp/posts/20190308/">
 <meta property="og:site_name" content="innoaus | 株式会社イノス">
 
-<meta property="og:image" content="https://innoaus.jp/images/android_1.jpg">
+<meta property="og:image" content="https://innoaus.jp/images/nginx.jpg">
 
 
-<meta property="og:tags" content="Android">
+<meta property="og:tags" content="Nginx">
+
+<meta property="og:tags" content="CentOS">
 
 <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
 <link rel="stylesheet" href="https://innoaus.jp/assets/app.min.css">
@@ -57,15 +59,17 @@ Androidの「日付と時刻」設定値を確認するコードサンプル - i
 <div class="content">
 <div>
     
-    <span class="date">2019.03.05</span>
+    <span class="date">2019.03.08</span>
     
 </div>
 
-<h1 class="title">Androidの「日付と時刻」設定値を確認するコードサンプル 
+<h1 class="title">Nginx 1.14をCentOS7にインストールする 
     
     <div style="font-size: .8rem;padding-top:1rem;">
             
-            <a href="/tags/android" class="chip tag">Android</a>
+            <a href="/tags/nginx" class="chip tag">Nginx</a>
+            
+            <a href="/tags/centos" class="chip tag">CentOS</a>
             
     </div>
     
@@ -74,62 +78,80 @@ Androidの「日付と時刻」設定値を確認するコードサンプル - i
 <div id="article" class="article">
     
 
-<p>Androidデバイス設定「日付と時刻」の設定値（On/Off）をコードから確認する方法です。</p>
+<p>作業ログとして残しておきます。</p>
 
-<h2 id="環境">環境</h2>
+<h2 id="nginx-リポジトリ追加">Nginx リポジトリ追加</h2>
 
-<ul>
-<li>Android Device Version: android API 28</li>
-<li>Android Studio 3.3.1</li>
-<li>Kotlin 1.3.20</li>
-</ul>
-
-<h2 id="日付と時刻-確認">「日付と時刻」確認</h2>
-
-<p>デバイス設定ー＞「システム」ー＞「日付と時刻」メニューから確認します。</p>
-
-<p><img src="/images/20190305_2_image3.jpg" alt="" /></p>
-
-<h2 id="new-project">New Project</h2>
-
-<p>新規プロジェクトを作成します。</p>
-
-<p><img src="/images/20190305_2_image1.png" alt="" /></p>
-
-<p>EmptyActivity Template選択</p>
-
-<p><img src="/images/20190305_2_image2.png" alt="" /></p>
-
-<h2 id="サンプルコード">サンプルコード</h2>
-
-<pre><code class="language-xml">//activity_main.xml
-&lt;TextView   android:id=&quot;@+id/text_result&quot;
-            android:layout_width=&quot;wrap_content&quot;
-            android:layout_height=&quot;wrap_content&quot;/&gt;
+<pre><code class="language-shell">sudo rpm -ivh http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-7-0.el7.ngx.noarch.rpm
 </code></pre>
 
-<pre><code class="language-kotlin">// #MainActivity.kt
-fun check() {
-    val result = android.provider.Settings.Global.getInt(contentResolver, android.provider.Settings.Global.AUTO_TIME, 0)
-    if (result == 1) {
-        text_result.setText(&quot;DateTime Sync: On&quot;)
-    } else {
-        text_result.setText(&quot;DateTime Sync: Off&quot;)
-    }
-}
+<h2 id="パッケージ情報からバージョン確認">パッケージ情報からバージョン確認</h2>
+
+<pre><code class="language-shell"># sudo yum info --enablerepo=nginx nginx
+~~~中略
+Version     : 1.14.2.
 </code></pre>
 
-<h2 id="結果">結果</h2>
+<h2 id="インストール">インストール</h2>
 
-<p>「日付と時刻」の設定値によって<code>DateTime Sync: On</code>と<code>DateTime Sync: Off</code>が表示されます。</p>
+<pre><code class="language-shell">sudo yum -y install --enablerepo=nginx nginx
+</code></pre>
 
-<p><img src="/images/20190305_2_image4.jpg" alt="" /></p>
+<h2 id="バージョン確認">バージョン確認</h2>
 
-<h2 id="参考">参考</h2>
+<pre><code class="language-shell"># nginx -v
+nginx version: nginx/1.14.2
+</code></pre>
 
-<ul>
-<li>Android Developer Site　:　<a href="https://developer.android.com/reference/android/provider/Settings.Global.html#AUTO_TIME">Settings.Global.AUTO_TIME</a></li>
-</ul>
+<h2 id="nginx起動">Nginx起動</h2>
+
+<pre><code class="language-shell">sudo systemctl start nginx
+</code></pre>
+
+<p>ブラウザからIPアドレス(<code>http://xxx.xxx.xxx.xxx/</code>)にアクセスしnginxのデフォルトページが表示されることを確認。</p>
+
+<h2 id="ドキュメントルートディレクトリ変更">ドキュメントルートディレクトリ変更</h2>
+
+<p>Nginxデフォルトルートディレクトリ　：　<code>/usr/share/nginx/html</code><br />
+<code>/var/www/html/exemple.com</code>へ変更する場合。</p>
+
+<pre><code class="language-shell">cd /etc/nginx/conf.d
+// 念のためバックアップ
+sudo cp default.conf default.conf.back
+sudo mv default.conf exemple.com.conf
+</code></pre>
+
+<p><code>exemple.com.conf</code>の<code>location</code>部分の<code>root</code>パスを変更します。</p>
+
+<pre><code class="language-shell">sudo vi localhost.conf
+- location / {
+-     root   /usr/share/nginx/html;
+-     index  index.html index.htm;
+- }
++ location / {
++     root   /var/www/html/exemple.com;
++     index  index.html index.htm;
++ }
+</code></pre>
+
+<p><code>.conf</code>編集に問題がないか確認します。</p>
+
+<pre><code class="language-shell"># nginx -t
+nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /etc/nginx/nginx.conf test is successful
+</code></pre>
+
+<p>Nginxを再起動し確認します。</p>
+
+<pre><code class="language-shell">sudo systemctl restart nginx
+</code></pre>
+
+<h2 id="サービス自動起動有効">サービス自動起動有効</h2>
+
+<p>OS起動時にNginxが自動起動するように設定</p>
+
+<pre><code class="language-shell">sudo systemctl enable nginx
+</code></pre>
 
 </div>
 
