@@ -4,27 +4,31 @@
 <meta charset="utf-8" />
 
 <title>
-ダウンタイムを最小限に動作中のサービスをアップデートする方法（CentOS 7） - innoaus | 株式会社イノス
+CentOS7&#43;Nginx 1.14&#43;php7.2&#43;php-fpm環境構築 2 (php7.2,php-fpmインストール) - innoaus | 株式会社イノス
 </title>
 
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <link rel="icon" type="image/png" href="https://innoaus.jp/images/favicon.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-<meta name="title" content="ダウンタイムを最小限に動作中のサービスをアップデートする方法（CentOS 7） - innoaus | 株式会社イノス">
-<meta name="description" content="運用中のサーバーのダウンタイムを最小限に動作中のサービスをアップデートする方法">
-<meta property="og:title" content="ダウンタイムを最小限に動作中のサービスをアップデートする方法（CentOS 7）">
+<meta name="title" content="CentOS7&#43;Nginx 1.14&#43;php7.2&#43;php-fpm環境構築 2 (php7.2,php-fpmインストール) - innoaus | 株式会社イノス">
+<meta name="description" content="CentOS7&#43;Nginx 1.14&#43;php7.2&#43;php-fpm環境構築 2 (php7.2,php-fpmインストール)">
+<meta property="og:title" content="CentOS7&#43;Nginx 1.14&#43;php7.2&#43;php-fpm環境構築 2 (php7.2,php-fpmインストール)">
 
 <meta property="og:type" content="article">
-<meta property="article:published_time" content="2019-03-07">
+<meta property="article:published_time" content="2019-03-09">
 
-<meta property="og:description" content="運用中のサーバーのダウンタイムを最小限に動作中のサービスをアップデートする方法">
-<meta property="og:url" content="https://innoaus.jp/posts/20190307/">
+<meta property="og:description" content="CentOS7&#43;Nginx 1.14&#43;php7.2&#43;php-fpm環境構築 2 (php7.2,php-fpmインストール)">
+<meta property="og:url" content="https://innoaus.jp/posts/20190309/">
 <meta property="og:site_name" content="innoaus | 株式会社イノス">
 
-<meta property="og:image" content="https://innoaus.jp/images/business_camera.jpg">
+<meta property="og:image" content="https://innoaus.jp/images/nginx.jpg">
 
+
+<meta property="og:tags" content="Nginx">
 
 <meta property="og:tags" content="CentOS">
+
+<meta property="og:tags" content="php">
 
 <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
 <link rel="stylesheet" href="https://innoaus.jp/assets/app.min.css">
@@ -57,15 +61,19 @@
 <div class="content">
 <div>
     
-    <span class="date">2019.03.07</span>
+    <span class="date">2019.03.09</span>
     
 </div>
 
-<h1 class="title">ダウンタイムを最小限に動作中のサービスをアップデートする方法（CentOS 7） 
+<h1 class="title">CentOS7&#43;Nginx 1.14&#43;php7.2&#43;php-fpm環境構築 2 (php7.2,php-fpmインストール) 
     
     <div style="font-size: .8rem;padding-top:1rem;">
             
+            <a href="/tags/nginx" class="chip tag">Nginx</a>
+            
             <a href="/tags/centos" class="chip tag">CentOS</a>
+            
+            <a href="/tags/php" class="chip tag">php</a>
             
     </div>
     
@@ -74,55 +82,111 @@
 <div id="article" class="article">
     
 
-<h2 id="シナリオ">シナリオ</h2>
+<p>前回の記事「Nginx 1.14をCentOS7にインストールする」の続きです。</p>
 
-<ol>
-<li>サービスは動作中</li>
-<li>サービス実行ファイル名は<code>a_process</code></li>
-<li>サービス実行ファイル動作に必要なshared objectファイル名は<code>a_lib.so</code></li>
-<li>サービス名は<code>a_process.service</code></li>
-<li><code>a_lib.so</code>ファイルをアップデート</li>
-</ol>
+<h2 id="php7-2-php-fpmインストール">php7.2, php-fpmインストール</h2>
 
-<h2 id="アップデートスクリプト作成">アップデートスクリプト作成</h2>
+<h3 id="レポジトリ情報を追加">レポジトリ情報を追加</h3>
 
-<pre><code class="language-shell">$ vi update_service.sh
-
-#!/bin/sh
-
-sudo service a_process.service stop
-sudo cp a_lib.so {ディレクトリ}/a_lib.so
-sudo systemctl daemon-reload
-sudo service a_process.service start
-
+<pre><code class="language-shell">yum -y install http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
 </code></pre>
 
-<p>作成した<code>update_service.sh</code>に実行モードを設定します。</p>
+<h3 id="yum-info-で-php-のパッケージ情報を確認">yum info で PHP のパッケージ情報を確認</h3>
 
-<pre><code class="language-shell">chmod +x update_service.sh
+<pre><code class="language-shell">yum info --enablerepo=remi php
+~~~
+Version     : 7.2.16
 </code></pre>
 
-<p>サービスアップデートのためには<code>sudo</code>権限が必要です。</p>
+<h3 id="インストール">インストール</h3>
 
-<p>動作中のサービスを停止します。</p>
-
-<pre><code class="language-shell">sudo service a_process.service stop
+<pre><code class="language-shell"># yum -y install --enablerepo=remi,remi-php72 php php-fpm
 </code></pre>
 
-<p>shared objectをコピーします。</p>
+<p>追加
+yum install &ndash;enablerepo=remi,remi-php72 php-bcmath</p>
 
-<pre><code class="language-shell">sudo cp a_lib.so {ディレクトリ}/a_lib.so
+<h3 id="バージョン確認">バージョン確認</h3>
+
+<pre><code class="language-shell"># php -v
+PHP 7.2.16 (cli) (built: Mar  5 2019 14:45:10) ( NTS )
 </code></pre>
 
-<p>サービスが更新されるとサービスコントローラーの<code>reload</code>が必要です。</p>
+<h3 id="자동기동">자동기동</h3>
 
-<pre><code class="language-shell">sudo systemctl daemon-reload
+<p>sudo systemctl enable php-fpm</p>
+
+<h2 id="nginx設定変更-php-fpm">Nginx設定変更（php-fpm）</h2>
+
+<p>とりあえず<code>php-fpm</code>はTCP接続で確認します。</p>
+
+<pre><code class="language-shell"># sudo vi exemple.com.conf
+- #location ~ \.php$ {
+- #    root           html;
+- #    fastcgi_pass   127.0.0.1:9000;
+- #    fastcgi_index  index.php;
+- #    fastcgi_param SCRIPT_FILENAME /scripts$fastcgi_script_name;
+- #    include        fastcgi_params;
+- #}
++ location ~ \.php$ {
++     root           /var/www/html/exemple.com;
++     fastcgi_pass   127.0.0.1:9000;
++     fastcgi_index  index.php;
++     fastcgi_param  SCRIPT_FILENAME $document_root$fastcgi_script_name;
++     include        fastcgi_params;
++ }
 </code></pre>
 
-<p>サービスをスタートします。</p>
+<p>nginx -t
+sudo systemctl restart nginx</p>
 
-<pre><code class="language-shell">sudo service a_process.service start
-</code></pre>
+<p>vi /var/www/html/exemple.com/phpinfo.php
+&lt;?php
+phpinfo();</p>
+
+<p>ブラウザからIPアドレス(<code>http://xxx.xxx.xxx.xxx/phpinfo.php</code>)にアクセスし、phpの情報画面が表示されれば成功です。</p>
+
+<p>Unix socket接続
+초기에는 /var/run/php-fpm/에 php-fpm.sock 파일이 없다 php-fpm.pid
+conf파일 수정하면 생성된다
+ cd /etc/php-fpm.d
+ vi www.conf</p>
+
+<p># 22行目あたり
+; RPM: apache Choosed to be able to access some dir as httpd
+user = nginx
+; RPM: Keep a group allowed to write in log dir.
+group = nginx
+・
+・
+・</p>
+
+<h1 id="37行目あたり">37行目あたり</h1>
+
+<p>listen = /var/run/php-fpm/php-fpm.sock
+・
+・
+・</p>
+
+<h1 id="48行目あたり">48行目あたり</h1>
+
+<p>listen.owner = nginx
+listen.group = nginx
+listen.mode = 0660 //listen.mode = 0666 ?</p>
+
+<p>sudo systemctl restart php-fpm</p>
+
+<p>nginx수정
+sudo vi /etc/nginx/conf.d/default.conf
+location ~ .php$ {
+        root   /usr/share/nginx/html;
+        fastcgi_pass   unix:/var/run/php-fpm/php-fpm.sock;
+        fastcgi_index  index.php;
+        fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+        include        fastcgi_params;
+    }</p>
+
+<p>sudo systemctl restart nginx</p>
 
 </div>
 

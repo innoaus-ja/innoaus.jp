@@ -21,7 +21,7 @@
 sudoコマンド関連設定ファイルは /etc/sudoers です。
 ＊ユーザーがuser1の場合
 すべてのコマンドに対してパスワード入力なし設定
-# sudo vi /etc/sudoers //ファイルの最後に %user1 ALL=(ALL) NOPASSWD: ALL  を追記
+$ sudo vi /etc/sudoers #ファイルの最後に %user1 ALL=(ALL) NOPASSWD: ALL  を追記
 一部のコマンド(/bin/kill, /bin/rm)に対して設定する場合は
 %user1 ALL=(ALL) NOPASSWD: /bin/kill, /bin/rm  sudoersファイルをより安全に編集たい場合はvisudoコマンドを使用してください。
 visudo</description>

@@ -6,23 +6,36 @@
     <description>Recent content on innoaus | 株式会社イノス</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Fri, 08 Mar 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 09 Mar 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://innoaus.jp/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Nginx 1.14をCentOS7にインストールする</title>
+      <title>CentOS7&#43;Nginx 1.14&#43;php7.2&#43;php-fpm環境構築 2 (php7.2,php-fpmインストール)</title>
+      <link>https://innoaus.jp/posts/20190309/</link>
+      <pubDate>Sat, 09 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://innoaus.jp/posts/20190309/</guid>
+      <description>前回の記事「Nginx 1.14をCentOS7にインストールする」の続きです。
+php7.2, php-fpmインストール レポジトリ情報を追加 yum -y install http://rpms.famillecollet.com/enterprise/remi-release-7.rpm  yum info で PHP のパッケージ情報を確認 yum info --enablerepo=remi php ~~~ Version : 7.2.16  インストール # yum -y install --enablerepo=remi,remi-php72 php php-fpm  追加 yum install &amp;ndash;enablerepo=remi,remi-php72 php-bcmath
+バージョン確認 # php -v PHP 7.2.16 (cli) (built: Mar 5 2019 14:45:10) ( NTS )  자동기동 sudo systemctl enable php-fpm
+Nginx設定変更（php-fpm） とりあえずphp-fpmはTCP接続で確認します。
+# sudo vi exemple.com.conf - #location ~ \.php$ { - # root html; - # fastcgi_pass 127.</description>
+    </item>
+    
+    <item>
+      <title>CentOS7&#43;Nginx 1.14&#43;php7.2&#43;php-fpm環境構築 1 (Nginx 1.14インストール)</title>
       <link>https://innoaus.jp/posts/20190308/</link>
       <pubDate>Fri, 08 Mar 2019 00:00:00 +0000</pubDate>
       
       <guid>https://innoaus.jp/posts/20190308/</guid>
       <description>作業ログとして残しておきます。
-Nginx リポジトリ追加 sudo rpm -ivh http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-7-0.el7.ngx.noarch.rpm  パッケージ情報からバージョン確認 # sudo yum info --enablerepo=nginx nginx ~~~中略 Version : 1.14.2.  インストール sudo yum -y install --enablerepo=nginx nginx  バージョン確認 # nginx -v nginx version: nginx/1.14.2  Nginx起動 sudo systemctl start nginx  ブラウザからIPアドレス(http://xxx.xxx.xxx.xxx/)にアクセスしnginxのデフォルトページが表示されることを確認。
+Nginx リポジトリ追加 $ sudo rpm -ivh http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-7-0.el7.ngx.noarch.rpm  パッケージ情報からバージョン確認 $ sudo yum info --enablerepo=nginx nginx ~~~中略 Version : 1.14.2.  インストール $ sudo yum -y install --enablerepo=nginx nginx  バージョン確認 $ nginx -v nginx version: nginx/1.14.2  Nginx起動 $ sudo systemctl start nginx  ブラウザからIPアドレス(http://xxx.xxx.xxx.xxx/)にアクセスし、nginxのデフォルトページが表示されることを確認。
 ドキュメントルートディレクトリ変更 Nginxデフォルトルートディレクトリ　：　/usr/share/nginx/html
 /var/www/html/exemple.comへ変更する場合。
-cd /etc/nginx/conf.d // 念のためバックアップ sudo cp default.conf default.conf.back sudo mv default.conf exemple.com.conf  exemple.com.confのlocation部分のrootパスを変更します。
-sudo vi localhost.conf - location / { - root /usr/share/nginx/html; - index index.</description>
+$ cd /etc/nginx/conf.d // 念のためバックアップ $ sudo cp default.conf default.conf.back $ sudo mv default.conf exemple.com.conf  exemple.com.confのlocation部分のrootパスを変更します。
+$ sudo vi localhost.</description>
     </item>
     
     <item>
@@ -50,7 +63,7 @@ repository通知削除 登録したrepositoryを削除する場合はunsubscribe
       
       <guid>https://innoaus.jp/posts/20190307/</guid>
       <description> シナリオ  サービスは動作中 サービス実行ファイル名はa_process サービス実行ファイル動作に必要なshared objectファイル名はa_lib.so サービス名はa_process.service a_lib.soファイルをアップデート  アップデートスクリプト作成 $ vi update_service.sh #!/bin/sh sudo service a_process.service stop sudo cp a_lib.so {ディレクトリ}/a_lib.so sudo systemctl daemon-reload sudo service a_process.service start  作成したupdate_service.shに実行モードを設定します。
-$ chmod +x update_service.sh  サービスアップデートのためにはsudo権限が必要です。
+chmod +x update_service.sh  サービスアップデートのためにはsudo権限が必要です。
 動作中のサービスを停止します。
 sudo service a_process.service stop  shared objectをコピーします。
 sudo cp a_lib.so {ディレクトリ}/a_lib.so  サービスが更新されるとサービスコントローラーのreloadが必要です。
@@ -162,7 +175,7 @@ EPEL Site : https://fedoraproject.org/wiki/EPEL
 sudoコマンド関連設定ファイルは /etc/sudoers です。
 ＊ユーザーがuser1の場合
 すべてのコマンドに対してパスワード入力なし設定
-# sudo vi /etc/sudoers //ファイルの最後に %user1 ALL=(ALL) NOPASSWD: ALL  を追記
+$ sudo vi /etc/sudoers #ファイルの最後に %user1 ALL=(ALL) NOPASSWD: ALL  を追記
 一部のコマンド(/bin/kill, /bin/rm)に対して設定する場合は
 %user1 ALL=(ALL) NOPASSWD: /bin/kill, /bin/rm  sudoersファイルをより安全に編集たい場合はvisudoコマンドを使用してください。
 visudo</description>
@@ -203,7 +216,7 @@ Colors for your Terminal. Unix-like (Linux, unix, mac) Windows Demo 必要ライ
       <description>準備 すべてのユーザーが利用する場合はsudo権限が必要です。
 もし、特定のユーザーのみである場合は必要ありません。
 goダウンロード 現在最新バージョンは1.12
-cd /usr/local/src $ sudo curl -O https://dl.google.com/go/go1.12.linux-amd64.tar.gz  チェックサム確認 sha256 checksumを利用しチェックサムを確認します。
+$ cd /usr/local/src $ sudo curl -O https://dl.google.com/go/go1.12.linux-amd64.tar.gz  チェックサム確認 sha256 checksumを利用しチェックサムを確認します。
 ダウンロードしたファイルのchecksumを確認し、サイトのSHA256 Checksumと同じか確認します。
 https://golang.org/dl/ のgo1.12.linux-amd64.tar.gz SHA256 Checksumは750a07fef8579ae4839458701f4df690e0b20b8bcce33b437e4df89c451b6f13
 $ sha256checkup go1.12.linux-amd64.tar.gz 750a07fef8579ae4839458701f4df690e0b20b8bcce33b437e4df89c451b6f13 go1.12.linux-amd64.tar.gz  ダウンロードしたファイル解凍 ダウンロードしたパッケージはすでにCentOS7用にビルドされているので解凍してそのまま使用可能です。
@@ -212,7 +225,7 @@ go実行（バージョン確認） binディレクトリに移動し
 $ cd /usr/local/go/bin $ ./go version go version go1.12 linux/amd64  goの前に./を付けないといけないことに注意。
 環境変数 ~/.bash_profileにGOPATHの設定とPATHを通します。
 $ vi ~/.bash_profile export GOPATH=$HOME/go export PATH=$PATH:$GOPATH/bin export PATH=$PATH:/usr/local/go/bin  このままでは変更が反映されないので、ログアウトしなおすか、
-$ source ~/.bash_profile  または</description>
+$ source ~/.</description>
     </item>
     
     <item>

@@ -20,7 +20,7 @@
       <description>準備 すべてのユーザーが利用する場合はsudo権限が必要です。
 もし、特定のユーザーのみである場合は必要ありません。
 goダウンロード 現在最新バージョンは1.12
-cd /usr/local/src $ sudo curl -O https://dl.google.com/go/go1.12.linux-amd64.tar.gz  チェックサム確認 sha256 checksumを利用しチェックサムを確認します。
+$ cd /usr/local/src $ sudo curl -O https://dl.google.com/go/go1.12.linux-amd64.tar.gz  チェックサム確認 sha256 checksumを利用しチェックサムを確認します。
 ダウンロードしたファイルのchecksumを確認し、サイトのSHA256 Checksumと同じか確認します。
 https://golang.org/dl/ のgo1.12.linux-amd64.tar.gz SHA256 Checksumは750a07fef8579ae4839458701f4df690e0b20b8bcce33b437e4df89c451b6f13
 $ sha256checkup go1.12.linux-amd64.tar.gz 750a07fef8579ae4839458701f4df690e0b20b8bcce33b437e4df89c451b6f13 go1.12.linux-amd64.tar.gz  ダウンロードしたファイル解凍 ダウンロードしたパッケージはすでにCentOS7用にビルドされているので解凍してそのまま使用可能です。
@@ -29,7 +29,7 @@ go実行（バージョン確認） binディレクトリに移動し
 $ cd /usr/local/go/bin $ ./go version go version go1.12 linux/amd64  goの前に./を付けないといけないことに注意。
 環境変数 ~/.bash_profileにGOPATHの設定とPATHを通します。
 $ vi ~/.bash_profile export GOPATH=$HOME/go export PATH=$PATH:$GOPATH/bin export PATH=$PATH:/usr/local/go/bin  このままでは変更が反映されないので、ログアウトしなおすか、
-$ source ~/.bash_profile  または</description>
+$ source ~/.</description>
     </item>
     
   </channel>
