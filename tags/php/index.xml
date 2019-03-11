@@ -18,7 +18,7 @@
       
       <guid>https://innoaus.jp/posts/20190311/</guid>
       <description>前回の記事 Nginx 1.14インストール の続きです。
-php7.2, php-fpmインストール レポジトリ情報を追加 $ sudo yum -y install http://rpms.famillecollet.com/enterprise/remi-release-7.rpm  yum info で PHP のパッケージ情報を確認 $ sudo yum info --enablerepo=remi php #~~~ Version : 7.2.16  インストール $ sudo yum -y install --enablerepo=remi,remi-php72 php php-fpm  バージョン確認 $ php -v PHP 7.2.16 (cli) (built: Mar 5 2019 14:45:10) ( NTS )  サービス自動起動有効 $ sudo systemctl enable php-fpm  Nginx設定変更（php-fpm） とりあえず、php-fpmはTCP接続で確認します。
+php7.2, php-fpmインストール レポジトリ情報を追加 $ sudo yum -y install http://rpms.famillecollet.com/enterprise/remi-release-7.rpm  yum info で PHP のパッケージ情報を確認 $ yum info --enablerepo=remi,remi-php72 php #~~~ Version : 7.2.16  インストール $ sudo yum -y install --enablerepo=remi,remi-php72 php php-fpm  バージョン確認 $ php -v PHP 7.2.16 (cli) (built: Mar 5 2019 14:45:10) ( NTS )  サービス自動起動有効 $ sudo systemctl enable php-fpm  Nginx設定変更（php-fpm） とりあえず、php-fpmはTCP接続で確認します。
 UNIX socket接続設定はこちら
 $ sudo vi /etc/nginx/conf.</description>
     </item>
