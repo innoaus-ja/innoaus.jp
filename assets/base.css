@@ -1,10 +1,4 @@
 
-/*
-a,
-a.active,a:active,a:focus,a:hover,
-a:visited {
-    color: #3eaf7c;
-} */
 a:visited {
     color: #5755d9;
 }
@@ -83,17 +77,17 @@ a.chip.tag:hover{
 .article > h4,
 .article > h5,
 .article > h6{
-	padding:1rem .5rem;
-	margin-bottom:0;
+	padding-left:.5rem;
     position: relative;
     font-size: 1rem;
     font-weight: bold;
+    margin-top: 2rem;
 }
 .article > h1:before,
 .article > h2:before{
     width: 8px;
     height: 17px;
-    top: 24px;
+    top: 5px;
     background-color: #5755d9;
     border-radius: 20px;
     border: 1px solid #5755d9;
@@ -106,9 +100,11 @@ a.chip.tag:hover{
 .article > h4,
 .article > h5,
 .article > h6{
-    padding:1rem 0 .5rem 0;
+    padding: .5rem 0;
     border-bottom: 1px solid #CCC;
+    margin-top: 1rem;
     margin-bottom:1rem;
+    font-size: .9rem;
 }
 h1:hover .header-anchor,h2:hover .header-anchor,h3:hover .header-anchor,h4:hover .header-anchor,h5:hover .header-anchor,h6:hover .header-anchor {
     opacity: 1
@@ -118,13 +114,31 @@ a.header-anchor {
     margin-left:.3rem;
 }
 .article p{
-	line-height: 1.9;
+    line-height: 1.6;
+    margin: .6rem 0;
 }
 .article img{
 	margin : .5rem 0;
 }
 .article p img{
 	vertical-align: middle;
+}
+.article .tip-wrap{
+    padding: .1rem 1.5rem;
+    padding-top:1rem;
+    border-left: .4rem solid #42b983;
+    margin: 1rem 0;
+    background-color: #f3f5f7;
+}
+.article .tip-wrap.red{
+    background-color: #ffe6e6;
+    border-color: #c00;
+    color: #4d0000;
+}
+.article .tip-wrap.yellow{
+    background-color: rgba(255,229,100,.3);
+    border-color: #e7c000;
+    color: #6b5900;
 }
 .container{
     max-width: 1050px;
@@ -273,5 +287,6 @@ a.header-anchor {
     }
     .sidebar{
         width: 100%;
+        border-top: 1px solid #CCC;
     }
 }

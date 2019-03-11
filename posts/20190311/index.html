@@ -4,27 +4,31 @@
 <meta charset="utf-8" />
 
 <title>
-Androidの「日付と時刻」設定値を確認するコードサンプル - innoaus | 株式会社イノス
+CentOS7&#43;Nginx 1.14&#43;php7.2&#43;php-fpm環境構築 2 (php7.2,php-fpmインストール) - innoaus | 株式会社イノス
 </title>
 
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <link rel="icon" type="image/png" href="https://innoaus.jp/images/favicon.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-<meta name="title" content="Androidの「日付と時刻」設定値を確認するコードサンプル - innoaus | 株式会社イノス">
-<meta name="description" content="Androidデバイス設定「日付と時刻」の設定値（On/Off）を確認するコードサンプル">
-<meta property="og:title" content="Androidの「日付と時刻」設定値を確認するコードサンプル">
+<meta name="title" content="CentOS7&#43;Nginx 1.14&#43;php7.2&#43;php-fpm環境構築 2 (php7.2,php-fpmインストール) - innoaus | 株式会社イノス">
+<meta name="description" content="CentOS7&#43;Nginx 1.14&#43;php7.2&#43;php-fpm環境構築 2 (php7.2,php-fpmインストール)">
+<meta property="og:title" content="CentOS7&#43;Nginx 1.14&#43;php7.2&#43;php-fpm環境構築 2 (php7.2,php-fpmインストール)">
 
 <meta property="og:type" content="article">
-<meta property="article:published_time" content="2019-03-05">
+<meta property="article:published_time" content="2019-03-11">
 
-<meta property="og:description" content="Androidデバイス設定「日付と時刻」の設定値（On/Off）を確認するコードサンプル">
-<meta property="og:url" content="https://innoaus.jp/posts/20190305_2/">
+<meta property="og:description" content="CentOS7&#43;Nginx 1.14&#43;php7.2&#43;php-fpm環境構築 2 (php7.2,php-fpmインストール)">
+<meta property="og:url" content="https://innoaus.jp/posts/20190311/">
 <meta property="og:site_name" content="innoaus | 株式会社イノス">
 
-<meta property="og:image" content="https://innoaus.jp/images/android_1.jpg">
+<meta property="og:image" content="https://innoaus.jp/images/php-fpm.jpg">
 
 
-<meta property="og:tags" content="Android">
+<meta property="og:tags" content="Nginx">
+
+<meta property="og:tags" content="CentOS">
+
+<meta property="og:tags" content="php">
 
 <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
 <link rel="stylesheet" href="https://innoaus.jp/assets/app.min.css">
@@ -57,15 +61,19 @@ Androidの「日付と時刻」設定値を確認するコードサンプル - i
 <div class="content">
 <div>
     
-    <span class="date">2019.03.05</span>
+    <span class="date">2019.03.11</span>
     
 </div>
 
-<h1 class="title">Androidの「日付と時刻」設定値を確認するコードサンプル 
+<h1 class="title">CentOS7&#43;Nginx 1.14&#43;php7.2&#43;php-fpm環境構築 2 (php7.2,php-fpmインストール) 
     
     <div style="font-size: .8rem;padding-top:1rem;">
             
-            <a href="/tags/android" class="chip tag">Android</a>
+            <a href="/tags/nginx" class="chip tag">Nginx</a>
+            
+            <a href="/tags/centos" class="chip tag">CentOS</a>
+            
+            <a href="/tags/php" class="chip tag">php</a>
             
     </div>
     
@@ -74,62 +82,78 @@ Androidの「日付と時刻」設定値を確認するコードサンプル - i
 <div id="article" class="article">
     
 
-<p>Androidデバイス設定「日付と時刻」の設定値（On/Off）をコードから確認する方法です。</p>
+<p>前回の記事 <a href="/posts/20190308">Nginx 1.14インストール</a> の続きです。</p>
 
-<h2 id="環境">環境</h2>
+<h2 id="php7-2-php-fpmインストール">php7.2, php-fpmインストール</h2>
 
-<ul>
-<li>Android Device Version: android API 28</li>
-<li>Android Studio 3.3.1</li>
-<li>Kotlin 1.3.20</li>
-</ul>
+<h3 id="レポジトリ情報を追加">レポジトリ情報を追加</h3>
 
-<h2 id="日付と時刻-確認">「日付と時刻」確認</h2>
-
-<p>デバイス設定ー＞「システム」ー＞「日付と時刻」メニューから確認します。</p>
-
-<p><img src="/images/20190305_2_image3.jpg" alt="" /></p>
-
-<h2 id="new-project">New Project</h2>
-
-<p>新規プロジェクトを作成します。</p>
-
-<p><img src="/images/20190305_2_image1.png" alt="" /></p>
-
-<p>EmptyActivity Template選択</p>
-
-<p><img src="/images/20190305_2_image2.png" alt="" /></p>
-
-<h2 id="サンプルコード">サンプルコード</h2>
-
-<pre><code class="language-xml">//activity_main.xml
-&lt;TextView   android:id=&quot;@+id/text_result&quot;
-            android:layout_width=&quot;wrap_content&quot;
-            android:layout_height=&quot;wrap_content&quot;/&gt;
+<pre><code class="language-shell">$ sudo yum -y install http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
 </code></pre>
 
-<pre><code class="language-kotlin">// #MainActivity.kt
-fun check() {
-    val result = android.provider.Settings.Global.getInt(contentResolver, android.provider.Settings.Global.AUTO_TIME, 0)
-    if (result == 1) {
-        text_result.setText(&quot;DateTime Sync: On&quot;)
-    } else {
-        text_result.setText(&quot;DateTime Sync: Off&quot;)
-    }
-}
+<h3 id="yum-info-で-php-のパッケージ情報を確認">yum info で PHP のパッケージ情報を確認</h3>
+
+<pre><code class="language-shell">$ sudo yum info --enablerepo=remi php
+#~~~
+Version     : 7.2.16
 </code></pre>
 
-<h2 id="結果">結果</h2>
+<h3 id="インストール">インストール</h3>
 
-<p>「日付と時刻」の設定値によって<code>DateTime Sync: On</code>と<code>DateTime Sync: Off</code>が表示されます。</p>
+<pre><code class="language-shell">$ sudo yum -y install --enablerepo=remi,remi-php72 php php-fpm
+</code></pre>
 
-<p><img src="/images/20190305_2_image4.jpg" alt="" /></p>
+<h3 id="バージョン確認">バージョン確認</h3>
 
-<h2 id="参考">参考</h2>
+<pre><code class="language-shell">$ php -v
+PHP 7.2.16 (cli) (built: Mar  5 2019 14:45:10) ( NTS )
+</code></pre>
 
-<ul>
-<li>Android Developer Site　:　<a href="https://developer.android.com/reference/android/provider/Settings.Global.html#AUTO_TIME">Settings.Global.AUTO_TIME</a></li>
-</ul>
+<h3 id="サービス自動起動有効">サービス自動起動有効</h3>
+
+<pre><code class="language-shell">$ sudo systemctl enable php-fpm
+</code></pre>
+
+<h2 id="nginx設定変更-php-fpm">Nginx設定変更（php-fpm）</h2>
+
+<p>とりあえず、<code>php-fpm</code>はTCP接続で確認します。<br />
+UNIX socket接続設定はこちら</p>
+
+<pre><code class="language-shell">$ sudo vi /etc/nginx/conf.d/exemple.com.conf
+- #location ~ \.php$ {
+- #    root           html;
+- #    fastcgi_pass   127.0.0.1:9000;
+- #    fastcgi_index  index.php;
+- #    fastcgi_param SCRIPT_FILENAME /scripts$fastcgi_script_name;
+- #    include        fastcgi_params;
+- #}
++ location ~ \.php$ {
++     root           /var/www/html/exemple.com;
++     fastcgi_pass   127.0.0.1:9000;
++     fastcgi_index  index.php;
++     fastcgi_param  SCRIPT_FILENAME $document_root$fastcgi_script_name;
++     include        fastcgi_params;
++ }
+</code></pre>
+
+<p><code>.conf</code>編集に問題がないか確認します。</p>
+
+<pre><code class="language-shell">$ nginx -t
+nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /etc/nginx/nginx.conf test is successful
+</code></pre>
+
+<p>Nginxを再起動。</p>
+
+<pre><code class="language-shell">$ sudo systemctl restart nginx
+</code></pre>
+
+<h2 id="php動作確認">php動作確認</h2>
+
+<pre><code class="language-shell">$ sudo echo &quot;&lt;?php phpinfo(); ?&gt;&quot; &gt; /var/www/html/exemple.com/phpinfo.php
+</code></pre>
+
+<p>ブラウザからIPアドレス(<code>http://xxx.xxx.xxx.xxx/phpinfo.php</code>)にアクセスし、phpの情報画面が表示されるか確認します。</p>
 
 </div>
 

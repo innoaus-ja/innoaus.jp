@@ -6,10 +6,22 @@
     <description>Recent content in Nginx on innoaus | 株式会社イノス</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Fri, 08 Mar 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 11 Mar 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://innoaus.jp/tags/nginx/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>CentOS7&#43;Nginx 1.14&#43;php7.2&#43;php-fpm環境構築 2 (php7.2,php-fpmインストール)</title>
+      <link>https://innoaus.jp/posts/20190311/</link>
+      <pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://innoaus.jp/posts/20190311/</guid>
+      <description>前回の記事 Nginx 1.14インストール の続きです。
+php7.2, php-fpmインストール レポジトリ情報を追加 $ sudo yum -y install http://rpms.famillecollet.com/enterprise/remi-release-7.rpm  yum info で PHP のパッケージ情報を確認 $ sudo yum info --enablerepo=remi php #~~~ Version : 7.2.16  インストール $ sudo yum -y install --enablerepo=remi,remi-php72 php php-fpm  バージョン確認 $ php -v PHP 7.2.16 (cli) (built: Mar 5 2019 14:45:10) ( NTS )  サービス自動起動有効 $ sudo systemctl enable php-fpm  Nginx設定変更（php-fpm） とりあえず、php-fpmはTCP接続で確認します。
+UNIX socket接続設定はこちら
+$ sudo vi /etc/nginx/conf.</description>
+    </item>
     
     <item>
       <title>CentOS7&#43;Nginx 1.14&#43;php7.2&#43;php-fpm環境構築 1 (Nginx 1.14インストール)</title>
