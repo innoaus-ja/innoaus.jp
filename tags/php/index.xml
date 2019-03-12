@@ -6,10 +6,19 @@
     <description>Recent content in Php on innoaus | 株式会社イノス</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Mon, 11 Mar 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 12 Mar 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://innoaus.jp/tags/php/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>CentOS7&#43;Nginx 1.14&#43;php7.2&#43;php-fpm環境構築 3 (php-fpm UNIX socket接続設定)</title>
+      <link>https://innoaus.jp/posts/20190312/</link>
+      <pubDate>Tue, 12 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://innoaus.jp/posts/20190312/</guid>
+      <description>Nginx 1.14インストール php7.2,php-fpmインストール php-fpm UNIX socket接続設定  php-fpm設定 $ cd /etc/php-fpm.d $ vi www.conf # 24行目あたり - user = apache + user = nginx - group = apache + group = nginx # 38行目あたり - listen = 127.0.0.1:9000 + listen = /var/run/php-fpm/php-fpm.sock # 48行目あたり - ;listen.owner = nobody - ;listen.group = nobody - ;listen.mode = 0660 + listen.owner = nginx + listen.group = nginx + listen.mode = 0660  php-fpm再起動後、php-fpm.</description>
+    </item>
     
     <item>
       <title>CentOS7&#43;Nginx 1.14&#43;php7.2&#43;php-fpm環境構築 2 (php7.2,php-fpmインストール)</title>
@@ -17,10 +26,8 @@
       <pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate>
       
       <guid>https://innoaus.jp/posts/20190311/</guid>
-      <description>前回の記事 Nginx 1.14インストール の続きです。
-php7.2, php-fpmインストール レポジトリ情報を追加 $ sudo yum -y install http://rpms.famillecollet.com/enterprise/remi-release-7.rpm  yum info で PHP のパッケージ情報を確認 $ yum info --enablerepo=remi,remi-php72 php #~~~ Version : 7.2.16  インストール $ sudo yum -y install --enablerepo=remi,remi-php72 php php-fpm  バージョン確認 $ php -v PHP 7.2.16 (cli) (built: Mar 5 2019 14:45:10) ( NTS )  サービス自動起動有効 $ sudo systemctl enable php-fpm  Nginx設定変更（php-fpm） とりあえず、php-fpmはTCP接続で確認します。
-UNIX socket接続設定はこちら
-$ sudo vi /etc/nginx/conf.</description>
+      <description>Nginx 1.14インストール php7.2,php-fpmインストール php-fpm UNIX socket接続設定  php7.2, php-fpmインストール レポジトリ情報を追加 $ sudo yum -y install http://rpms.famillecollet.com/enterprise/remi-release-7.rpm  yum info で PHP のパッケージ情報を確認 $ yum info --enablerepo=remi,remi-php72 php #~~~ Version : 7.2.16  インストール $ sudo yum -y install --enablerepo=remi,remi-php72 php php-fpm  バージョン確認 $ php -v PHP 7.2.16 (cli) (built: Mar 5 2019 14:45:10) ( NTS )  サービス自動起動有効 $ sudo systemctl enable php-fpm  Nginx設定変更（php-fpm） とりあえず、php-fpmはTCP接続で確認します。
+UNIX socket接続設定はこちら</description>
     </item>
     
   </channel>

@@ -6,10 +6,19 @@
     <description>Recent content in Nginx on innoaus | 株式会社イノス</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Mon, 11 Mar 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 12 Mar 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://innoaus.jp/tags/nginx/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>CentOS7&#43;Nginx 1.14&#43;php7.2&#43;php-fpm環境構築 3 (php-fpm UNIX socket接続設定)</title>
+      <link>https://innoaus.jp/posts/20190312/</link>
+      <pubDate>Tue, 12 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://innoaus.jp/posts/20190312/</guid>
+      <description>Nginx 1.14インストール php7.2,php-fpmインストール php-fpm UNIX socket接続設定  php-fpm設定 $ cd /etc/php-fpm.d $ vi www.conf # 24行目あたり - user = apache + user = nginx - group = apache + group = nginx # 38行目あたり - listen = 127.0.0.1:9000 + listen = /var/run/php-fpm/php-fpm.sock # 48行目あたり - ;listen.owner = nobody - ;listen.group = nobody - ;listen.mode = 0660 + listen.owner = nginx + listen.group = nginx + listen.mode = 0660  php-fpm再起動後、php-fpm.</description>
+    </item>
     
     <item>
       <title>CentOS7&#43;Nginx 1.14&#43;php7.2&#43;php-fpm環境構築 2 (php7.2,php-fpmインストール)</title>
@@ -17,10 +26,8 @@
       <pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate>
       
       <guid>https://innoaus.jp/posts/20190311/</guid>
-      <description>前回の記事 Nginx 1.14インストール の続きです。
-php7.2, php-fpmインストール レポジトリ情報を追加 $ sudo yum -y install http://rpms.famillecollet.com/enterprise/remi-release-7.rpm  yum info で PHP のパッケージ情報を確認 $ yum info --enablerepo=remi,remi-php72 php #~~~ Version : 7.2.16  インストール $ sudo yum -y install --enablerepo=remi,remi-php72 php php-fpm  バージョン確認 $ php -v PHP 7.2.16 (cli) (built: Mar 5 2019 14:45:10) ( NTS )  サービス自動起動有効 $ sudo systemctl enable php-fpm  Nginx設定変更（php-fpm） とりあえず、php-fpmはTCP接続で確認します。
-UNIX socket接続設定はこちら
-$ sudo vi /etc/nginx/conf.</description>
+      <description>Nginx 1.14インストール php7.2,php-fpmインストール php-fpm UNIX socket接続設定  php7.2, php-fpmインストール レポジトリ情報を追加 $ sudo yum -y install http://rpms.famillecollet.com/enterprise/remi-release-7.rpm  yum info で PHP のパッケージ情報を確認 $ yum info --enablerepo=remi,remi-php72 php #~~~ Version : 7.2.16  インストール $ sudo yum -y install --enablerepo=remi,remi-php72 php php-fpm  バージョン確認 $ php -v PHP 7.2.16 (cli) (built: Mar 5 2019 14:45:10) ( NTS )  サービス自動起動有効 $ sudo systemctl enable php-fpm  Nginx設定変更（php-fpm） とりあえず、php-fpmはTCP接続で確認します。
+UNIX socket接続設定はこちら</description>
     </item>
     
     <item>
@@ -30,11 +37,10 @@ $ sudo vi /etc/nginx/conf.</description>
       
       <guid>https://innoaus.jp/posts/20190308/</guid>
       <description>作業ログとして残しておきます。
-Nginx リポジトリ追加 $ sudo rpm -ivh http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-7-0.el7.ngx.noarch.rpm  パッケージ情報からバージョン確認 $ sudo yum info --enablerepo=nginx nginx ~~~中略 Version : 1.14.2.  インストール $ sudo yum -y install --enablerepo=nginx nginx  バージョン確認 $ nginx -v nginx version: nginx/1.14.2  Nginx起動 $ sudo systemctl start nginx  ブラウザからIPアドレス(http://xxx.xxx.xxx.xxx/)にアクセスし、nginxのデフォルトページが表示されることを確認。
+ Nginx 1.14インストール php7.2,php-fpmインストール php-fpm UNIX socket接続設定  Nginx リポジトリ追加 $ sudo rpm -ivh http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-7-0.el7.ngx.noarch.rpm  パッケージ情報からバージョン確認 $ sudo yum info --enablerepo=nginx nginx ~~~中略 Version : 1.14.2.  インストール $ sudo yum -y install --enablerepo=nginx nginx  バージョン確認 $ nginx -v nginx version: nginx/1.14.2  Nginx起動 $ sudo systemctl start nginx  ブラウザからIPアドレス(http://xxx.xxx.xxx.xxx/)にアクセスし、nginxのデフォルトページが表示されることを確認。
 ドキュメントルートディレクトリ変更 Nginxデフォルトルートディレクトリ　：　/usr/share/nginx/html
 /var/www/html/exemple.comへ変更する場合。
-$ cd /etc/nginx/conf.d // 念のためバックアップ $ sudo cp default.conf default.conf.back $ sudo mv default.conf exemple.com.conf  exemple.com.confのlocation部分のrootパスを変更します。
-$ sudo vi localhost.</description>
+$ cd /etc/nginx/conf.d // 念のためバックアップ $ sudo cp default.conf default.conf.back $ sudo mv default.</description>
     </item>
     
   </channel>
