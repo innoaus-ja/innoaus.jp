@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Omega on innoaus | 株式会社イノス</title>
+    <link>https://innoaus.jp/tags/omega/</link>
+    <description>Recent content in Omega on innoaus | 株式会社イノス</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Tue, 19 Mar 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://innoaus.jp/tags/omega/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Onion Omega2&#43; セットアップ、接続方法</title>
+      <link>https://innoaus.jp/posts/20190319/</link>
+      <pubDate>Tue, 19 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://innoaus.jp/posts/20190319/</guid>
+      <description> 準備  Onion Omega2+ Expansion Dock  セットアップ 電源オン  Omega2+、Expansion Dock、USBケーブルを準備します。  Expansion DockにOmega2+を下記のようにセットします。  USBケーブルをPCにつなぐとOmega2+のLEDランプが点滅します。
+もし、点滅しない場合はExpansion Dock右側の電源スイッチを確認してください。   Omega2+接続  Omega2+ LEDの点滅が終われば起動完了です。 無線LANのアクセスポイントからOmega-xxxx(xxxはOmegaMACアドレス下4桁)を選択します。
+デフォルトパスワードは12345678です。  ブラウザから192.168.3.1に接続します。   Omega2+初期設定  Omegaにログインします。
+デフォルトUsernameはroot、Passwordはonioneerです。  WiFi情報を入力します。  クラウドにログインしOmega機器を登録します。
+[Skip Step&amp;gt;]を選択します。  Install Consoleを選択、&amp;rsquo;Upgrade Firmware..&amp;lsquo;を選択します。  ファームウェアアップデートと設定が行われます。終わると自動再起動しますが、再起動しない場合は電源スイッチから起動します。
+  Omega2+接続  ブラウザにomega-xxxx.local(xxxはOmegaMACアドレス下4桁)を入力し、Omegaに接続します。  デフォルトUsernameはroot、Passwordはonioneerです。  これで初期設定が完了しました。   References  Onion Omega2 Documentation  </description>
+    </item>
+    
+  </channel>
+</rss>
