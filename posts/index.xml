@@ -6,10 +6,25 @@
     <description>Recent content in Posts on innoaus | 株式会社イノス</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Tue, 19 Mar 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 20 Mar 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://innoaus.jp/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Onion Omega2&#43; Oled ExpansionでQRコードを表示する</title>
+      <link>https://innoaus.jp/posts/20190320/</link>
+      <pubDate>Wed, 20 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://innoaus.jp/posts/20190320/</guid>
+      <description> Omega2+ セットアップ方法はこちら
+ 準備  Onion Omega2+ Expansion Dock OLED Expansion  ステップ Omega2+ 接続  ブラウザにomega-xxxx.local(xxxはOmegaMACアドレス下4桁)を入力し、Omegaにログインします。  Terminalを選択します。  login, passwordはログイン時使用したUsername, Passwordと同じです。   Open Packageインストール opkgで必要なパッケージをインストールすることができます。
+まず、opkgをアップデートします。
+opkg update  opkgから必要なパッケージをインストールします。
+opkg install python-light python-codecs pyOledExp git git-http ca-bundle  oled-qr-code-generatorダウンロード gitコマンドでOnionから提供されているoled-qr-code-generatorをダウンロードします。 https://github.com/OnionIoT/oledQrCodeGenerator
+cd git clone https://github.com/OnionIoT/oledQrCodeGenerator.git  QRコード表示 QRコード内容をmain.pyにパラメータとして渡すとOLEDにQRコードが表示されます。
+cd oledQrCodeGenerator python main.py &#39;Hello, Onion?&#39;  </description>
+    </item>
     
     <item>
       <title>Onion Omega2&#43; セットアップ、接続方法</title>

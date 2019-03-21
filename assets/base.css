@@ -125,8 +125,7 @@ a.header-anchor {
 	vertical-align: middle;
 }
 .article .tip-wrap{
-    padding: .1rem 1.5rem;
-    padding-top:1rem;
+    padding: .5rem 1.5rem;
     border-left: .4rem solid #42b983;
     margin: 1rem 0;
     background-color: #f3f5f7;

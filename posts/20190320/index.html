@@ -4,27 +4,31 @@
 <meta charset="utf-8" />
 
 <title>
-vuepressを試す（環境準備） - innoaus | 株式会社イノス
+Onion Omega2&#43; Oled ExpansionでQRコードを表示する - innoaus | 株式会社イノス
 </title>
 
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <link rel="icon" type="image/png" href="https://innoaus.jp/images/favicon.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-<meta name="title" content="vuepressを試す（環境準備） - innoaus | 株式会社イノス">
-<meta name="description" content="静的サイトジェネレーターvuepressを試してみる。">
-<meta property="og:title" content="vuepressを試す（環境準備）">
+<meta name="title" content="Onion Omega2&#43; Oled ExpansionでQRコードを表示する - innoaus | 株式会社イノス">
+<meta name="description" content="Onion Omega2&#43; OLED ExpansionでQRコードを表示する">
+<meta property="og:title" content="Onion Omega2&#43; Oled ExpansionでQRコードを表示する">
 
 <meta property="og:type" content="article">
-<meta property="article:published_time" content="2019-02-18">
+<meta property="article:published_time" content="2019-03-20">
 
-<meta property="og:description" content="静的サイトジェネレーターvuepressを試してみる。">
-<meta property="og:url" content="https://innoaus.jp/posts/20190218/">
+<meta property="og:description" content="Onion Omega2&#43; OLED ExpansionでQRコードを表示する">
+<meta property="og:url" content="https://innoaus.jp/posts/20190320/">
 <meta property="og:site_name" content="innoaus | 株式会社イノス">
 
-<meta property="og:image" content="https://innoaus.jp/images/vuepress_logo.jpg">
+<meta property="og:image" content="https://innoaus.jp/images/20190320_image0.jpg">
 
 
-<meta property="og:tags" content="vuepress">
+<meta property="og:tags" content="Omega">
+
+<meta property="og:tags" content="IoT">
+
+<meta property="og:tags" content="Embedded">
 
 <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
 <link rel="stylesheet" href="https://innoaus.jp/assets/app.min.css">
@@ -57,15 +61,19 @@ vuepressを試す（環境準備） - innoaus | 株式会社イノス
 <div class="content">
 <div>
     
-    <span class="date">2019.02.18</span>
+    <span class="date">2019.03.20</span>
     
 </div>
 
-<h1 class="title">vuepressを試す（環境準備） 
+<h1 class="title">Onion Omega2&#43; Oled ExpansionでQRコードを表示する 
     
     <div style="font-size: .8rem;padding-top:1rem;">
             
-            <a href="/tags/vuepress" class="chip tag">vuepress</a>
+            <a href="/tags/omega" class="chip tag">Omega</a>
+            
+            <a href="/tags/iot" class="chip tag">IoT</a>
+            
+            <a href="/tags/embedded" class="chip tag">Embedded</a>
             
     </div>
     
@@ -74,61 +82,66 @@ vuepressを試す（環境準備） - innoaus | 株式会社イノス
 <div id="article" class="article">
     
 
-<p>vuepressは現在バージョン<code>0.x</code>と<code>1.x alpha</code>二つありますが、<code>1.x</code>からはplugin機能が強化され、Blogサイトなどを構築しやすくなっているようです。<br />
-（ドキュメント系サイトならどのバージョンでもそんなに差はないと思います。）</p>
+<div class="tip-wrap yellow"><p>Omega2+ セットアップ方法は<a href="/posts/20190319/">こちら</a></p>
+</div>
 
-<h2 id="インストール">インストール</h2>
+<h2 id="準備">準備</h2>
 
-<p>今回は<code>1.x alpha</code>バージョンをローカルインストールします。<br />
-作業用フォルダ(vuepress_v1_test)作成後、</p>
+<ol>
+<li>Onion Omega2+</li>
+<li>Expansion Dock</li>
+<li>OLED Expansion</li>
+</ol>
 
-<pre><code class="language-sh">cd vuepress_v1_test
-npm init -y
-npm install -D vuepress@next
+<p><img src="/images/20190320_image6.jpg" alt="" /></p>
+
+<h2 id="ステップ">ステップ</h2>
+
+<h3 id="omega2-接続">Omega2+ 接続</h3>
+
+<ol>
+<li>ブラウザに<code>omega-xxxx.local</code>(xxxはOmegaMACアドレス下4桁)を入力し、Omegaにログインします。
+<img src="/images/20190320_image1.png" alt="" /></li>
+<li>Terminalを選択します。
+<img src="/images/20190320_image2.png" alt="" /></li>
+<li>login, passwordはログイン時使用したUsername, Passwordと同じです。
+<img src="/images/20190320_image3.png" alt="" /></li>
+</ol>
+
+<h3 id="open-packageインストール">Open Packageインストール</h3>
+
+<p>opkgで必要なパッケージをインストールすることができます。</p>
+
+<p>まず、opkgをアップデートします。</p>
+
+<pre><code class="language-sh">opkg update
 </code></pre>
 
-<p>インストール完了後、フォルダ(<code>dev_docs</code>)を作成します。<br />
-vuepressをローカルインストールしたので、<code>vuepress</code>コマンドを使うことはできませんので<code>npm scripts</code>を利用します。<br />
-<code>package.json</code>ファイルの<code>scripts</code>部分を次のように変更します。</p>
+<p>opkgから必要なパッケージをインストールします。</p>
 
-<pre><code class="language-json">&quot;scripts&quot;: {
-    &quot;dev&quot;: &quot;vuepress dev dev_docs&quot;,
-    &quot;build&quot;: &quot;vuepress build dev_docs&quot;
-},
+<pre><code class="language-sh">opkg install python-light python-codecs pyOledExp git git-http ca-bundle
 </code></pre>
 
-<p>*<code>scripts</code>を利用しない場合は</p>
+<h3 id="oled-qr-code-generatorダウンロード">oled-qr-code-generatorダウンロード</h3>
 
-<pre><code class="language-sh">npx vuepress dev dev_docs
+<p>gitコマンドでOnionから提供されている<code>oled-qr-code-generator</code>をダウンロードします。
+<a href="https://github.com/OnionIoT/oledQrCodeGenerator">https://github.com/OnionIoT/oledQrCodeGenerator</a></p>
+
+<pre><code class="language-sh">cd
+git clone https://github.com/OnionIoT/oledQrCodeGenerator.git
 </code></pre>
 
-<p>これで環境準備が終わりました。</p>
+<h3 id="qrコード表示">QRコード表示</h3>
 
-<h2 id="markdownファイルを書く">markdownファイルを書く</h2>
+<p>QRコード内容を<code>main.py</code>にパラメータとして渡すとOLEDにQRコードが表示されます。</p>
 
-<p><code>dev_docs</code>フォルダに<code>readme.md</code>ファイルを作成し、markdownを書きます。</p>
-
-<pre><code class="language-sh"># VuePressテスト
+<pre><code class="language-sh">cd oledQrCodeGenerator
+python main.py 'Hello, Onion?'
 </code></pre>
 
-<p>（<code>readme.md</code>は<code>index.html</code>に変換されます。）</p>
+<p><img src="/images/20190320_image4.png" alt="" /></p>
 
-<h2 id="ブラウザ表示確認">ブラウザ表示確認</h2>
-
-<pre><code class="language-sh">npm run dev
-</code></pre>
-
-<p>ブラウザから<code>http://localhost:8080/</code>を開くと<code>VuePressテスト</code>が表示されます。<br />
-<code>readme.md</code>ファイルを編集するとブラウザが自動更新されるので、編集内容を確認しながらmarkdownを書くことができます。</p>
-
-<h2 id="build">Build</h2>
-
-<pre><code class="language-sh">npm run build
-</code></pre>
-
-<p><code>build</code>コマンドを実行すると<code>.vuepress\dist</code>フォルダに変換されたHTMLファイルが出力されます。</p>
-
-<p>基本設定などは次回に。</p>
+<p><img src="/images/20190320_image5.jpg" alt="" /></p>
 
 </div>
 
